@@ -8,7 +8,10 @@
 import Foundation
 
 // https://stackoverflow.com/questions/46279992/any-when-decoding-json-with-codable
-public class JSONAny: Codable, Equatable, @unchecked Sendable {
+public class JSONAny: Codable, Equatable, Hashable, @unchecked Sendable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(self as? String)
+	}
 	public static func == (lhs: JSONAny, rhs: JSONAny) -> Bool {
 		return dumpToString(lhs.value) == dumpToString(rhs.value)
 	}
