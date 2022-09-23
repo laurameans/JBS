@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if canImport(MapKit)
+import MapKit
+#endif
 
 public struct Coordinates: Codable, Equatable, Hashable {
 	public init(longitude: Double, latitude: Double) {
@@ -26,4 +29,11 @@ public struct Coordinates: Codable, Equatable, Hashable {
 	public var arrayRepresentationLongLat: [Double] {
 		[longitude, latitude]
 	}
+	
+	#if canImport(MapKit)
+	public var clLocationCoordinate2D: CLLocationCoordinate2D {
+		CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+	}
+	#endif
 }
+
