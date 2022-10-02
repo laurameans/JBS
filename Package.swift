@@ -21,7 +21,8 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
 		.library(name: "JBS", targets: ["JBS"]),
 		.library(name: "JBSNews", targets: ["JBSNews"]),
-		.library(name: "JBSDream", targets: ["JBSDream"])
+		.library(name: "JBSDream", targets: ["JBSDream"]),
+		.library(name: "JBSPay", targets: ["JBSPay"])
     ],
 	
     dependencies: [
@@ -31,8 +32,12 @@ let package = Package(
     targets: [
 		.target(name: "JBS"),
 		.target(name: "JBSNews"),
-		.target(name: "JBSDream", dependencies: [
+		.target(name: "JBSPay", dependencies: [
 			"JBS"
-		])
+		]),
+		.target(name: "JBSDream", dependencies: [
+			"JBS",
+			"JBSPay"
+		]),
     ]
 )

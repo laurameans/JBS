@@ -18,7 +18,7 @@ public struct Replicate {
 		public var status: Status
 		public var input: Input
 		public var output: [String]?
-		public var error: JSONNull?
+		public var error: String?
 		public var logs: String?
 		public var metrics: Metrics
 		
@@ -44,7 +44,7 @@ public struct Replicate {
 			case canceled
 		}
 		
-		public init(id: String, version: String, urls: Replicate.Prediction.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Status, input: Replicate.Prediction.Input, output: [String], error: JSONNull? = nil, logs: String? = nil, metrics: Replicate.Prediction.Metrics) {
+		public init(id: String, version: String, urls: Replicate.Prediction.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Status, input: Replicate.Prediction.Input, output: [String], error: String? = nil, logs: String? = nil, metrics: Replicate.Prediction.Metrics) {
 			self.id = id
 			self.version = version
 			self.urls = urls
@@ -77,6 +77,10 @@ public struct Replicate {
 			public enum Version: String, RawRepresentable, Codable, Hashable, Sendable {
 				case material = "56f26876a159c10b429c382f66ccda648c1d5678d7ce15ed010734b715be5ab9"
 				case stableDiffusion = "a9758cbfbd5f3c2094457d996681af52552901775aa2d6dd0b17fd15df959bef"
+			}
+			
+			public var creditsCost: Int {
+				input.numOutputs ?? 1
 			}
 		}
 		
