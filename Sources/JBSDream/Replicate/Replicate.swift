@@ -77,6 +77,7 @@ public struct Replicate {
 			public enum Version: String, RawRepresentable, Codable, Hashable, Sendable {
 				case material = "56f26876a159c10b429c382f66ccda648c1d5678d7ce15ed010734b715be5ab9"
 				case stableDiffusion = "a9758cbfbd5f3c2094457d996681af52552901775aa2d6dd0b17fd15df959bef"
+				case stableDiffusionNSFW = "19a42e3e1f79e1f998e4738c55fb15879c05586064db93d5a22e11c4f9694e42"
 			}
 			
 			public var creditsCost: Int {
