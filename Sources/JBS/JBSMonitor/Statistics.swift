@@ -22,9 +22,12 @@ public struct MonitorStatistics: Codable, Hashable {
 }
 
 public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
-	public init(key: Key, value: Double, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
+	public init(key: MonitorStatisticsV2.Key, value: Double, title: String? = nil, roundingLevel: Int, position: MonitorStatisticsV2.Position, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
 		self.key = key
 		self.value = value
+		self.title = title
+		self.roundingLevel = roundingLevel
+		self.position = position
 		self.createdDate = createdDate
 		self.updatedDate = updatedDate
 		self.deletedDate = deletedDate
@@ -32,6 +35,9 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
 	
 	public var key: Key
 	public var value: Double
+	public var title: String?
+	public var roundingLevel: Int
+	public var position: Position
 	public var createdDate: Date?
 	public var updatedDate: Date?
 	public var deletedDate: Date?
