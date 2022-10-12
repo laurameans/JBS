@@ -51,3 +51,16 @@ public enum JBSAppType: Codable, Hashable {
 		}
 	}
 }
+
+public extension JBSAppName {
+	static var mainframe: JBSAppName { JBSAppName(rawValue: "mainframe") }
+	static var all: JBSAppName { JBSAppName(rawValue: "all") }
+	static var voosey: JBSAppName { JBSAppName(rawValue: "voosey") }
+	static var neuraform: JBSAppName { JBSAppName(rawValue: "neuraform") }
+	static var neurafund: JBSAppName { JBSAppName(rawValue: "neurafund") }
+	static var neuratrade: JBSAppName { JBSAppName(rawValue: "neuratrade") }
+	static var outtakes: JBSAppName { JBSAppName(rawValue: "outtakes") }
+	static var globeos: JBSAppName { JBSAppName(rawValue: "globeos") }
+	static var revolusun: JBSAppName { JBSAppName(rawValue: "revolusun") }
+	static var skatedex: JBSAppName { JBSAppName(rawValue: "skatedex") }
+}
