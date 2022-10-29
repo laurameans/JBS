@@ -16,7 +16,7 @@ public struct Replicate {
 		public var createdAt: String?
 		public var completedAt: String?
 		public var status: Status
-		public var input: Input
+		public var input: some Codable
 		public var output: [String]?
 		public var error: String?
 		public var logs: String?
@@ -77,7 +77,8 @@ public struct Replicate {
 			public enum Version: String, RawRepresentable, Codable, Hashable, Sendable {
 				case material = "56f26876a159c10b429c382f66ccda648c1d5678d7ce15ed010734b715be5ab9"
 				case stableDiffusion = "a9758cbfbd5f3c2094457d996681af52552901775aa2d6dd0b17fd15df959bef"
-				case stableDiffusionNSFW = "19a42e3e1f79e1f998e4738c55fb15879c05586064db93d5a22e11c4f9694e42"
+				case stableDiffusionV1_5 = "f370727477aa04d12d8c0b5c4e3a22399296c21cd18ff67cd7619710630fe3cb"
+				case deforumStableDiffusion = "e22e77495f2fb83c34d5fae2ad8ab63c0a87b6b573b6208e1535b23b89ea66d6"
 			}
 			
 			public var creditsCost: Int {
