@@ -16,7 +16,8 @@ public struct Replicate {
 		public var createdAt: String?
 		public var completedAt: String?
 		public var status: Status
-		public var input: some Codable
+		
+		public var input: Input
 		public var output: [String]?
 		public var error: String?
 		public var logs: String?
