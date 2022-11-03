@@ -17,21 +17,25 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable>: Coda
 	}
 	
 	public init(from decoder: Decoder) throws {
-		let container = try decoder.singleValueContainer()
-		
 		do {
-			self.wrappedValue = try container.decode(T?.self)
-		} catch let underlyingError {
+			let container = try decoder.singleValueContainer()
+			
 			do {
-				let stringValue = try container.decode(String?.self)
-				guard let stringValue = stringValue, let decimalValue = T(string: stringValue) else {
-					self.wrappedValue = nil
-					return
-				}
-				self.wrappedValue = decimalValue
+				self.wrappedValue = try container.decode(T?.self)
 			} catch let underlyingError {
-				self.wrappedValue = nil
+				do {
+					let stringValue = try container.decode(String?.self)
+					guard let stringValue = stringValue, let decimalValue = T(string: stringValue) else {
+						self.wrappedValue = nil
+						return
+					}
+					self.wrappedValue = decimalValue
+				} catch let underlyingError {
+					self.wrappedValue = nil
+				}
 			}
+		} catch {
+			self.wrappedValue = nil
 		}
 	}
 	
