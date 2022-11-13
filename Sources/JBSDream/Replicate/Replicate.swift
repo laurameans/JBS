@@ -11,6 +11,79 @@ import JBS
 extension String: ReplicateOutput { }
 
 public struct Replicate {
+	public struct ClipInterrogator: ReplicatePrediction {
+		public init(id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, input: Replicate.ClipInterrogator.Input, output: Output? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
+			self.id = id
+			self.version = version
+			self.urls = urls
+			self.createdAt = createdAt
+			self.completedAt = completedAt
+			self.status = status
+			self.input = input
+			self.output = output
+			self.error = error
+			self.logs = logs
+			self.metrics = metrics
+		}
+		
+		public var id: String
+		
+		public var version: String
+		
+		public var urls: Replicate.Urls
+		
+		public var createdAt: String?
+		
+		public var completedAt: String?
+		
+		public var status: Replicate.Status
+		
+		public var input: Input
+		
+		public var output: Output?
+		
+		public var error: String?
+		
+		public var logs: String?
+		
+		public var metrics: Replicate.Metrics
+		
+		public static var slug: String { "clipinterrogator" }
+		
+		public struct Create: ReplicateCreate {
+			public init(version: Replicate.Version, webhookCompleted: String? = nil, input: Replicate.ClipInterrogator.Input) {
+				self.version = version
+				self.webhookCompleted = webhookCompleted
+				self.input = input
+			}
+			
+			public var version: Replicate.Version
+			public var webhookCompleted: String?
+			public var input: ClipInterrogator.Input
+		}
+		
+		public struct Input: ReplicateInput {
+			public init(image: String, clipModelName: String = "ViT-L/14") {
+				self.image = image
+				self.clipModelName = clipModelName
+			}
+			
+			public var costUSD: Double { 0.14 }
+			/// ImageURL
+			public var image: String
+			public var clipModelName: String
+			
+			public enum CodingKeys: String, CodingKey {
+				case image = "image"
+				case clipModelName = "clip_model_name"
+			}
+		}
+		
+		public typealias Output = String
+		
+		
+	}
+	
 	public struct StableDiffusion: ReplicatePrediction {
 		public static var slug: String { "stablediffusion" }
 		
@@ -28,7 +101,7 @@ public struct Replicate {
 			public var input: StableDiffusion.Input
 		}
 		
-		public init(input: StableDiffusion.Input, id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, output: [String]? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
+		public init(input: StableDiffusion.Input, id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, output: Output? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
 			self.input = input
 			self.id = id
 			self.version = version
@@ -58,7 +131,7 @@ public struct Replicate {
 		
 		public var status: Replicate.Status
 		
-		public var output: [String]?
+		public var output: Output?
 		
 		public var error: String?
 		
@@ -86,7 +159,10 @@ public struct Replicate {
 			/// Random seed. Leave blank to randomize the seed
 			public var seed: String?
 			
-			public init(prompt: String, width: Int? = nil, height: Int? = nil, promptStrength: Double? = nil, numOutputs: Int? = nil, numInferenceSteps: Int? = nil, guidanceScale: Double? = nil, seed: String? = nil) {
+			public var initImage: String?
+			public var mask: String?
+			
+			public init(prompt: String, width: Int? = nil, height: Int? = nil, promptStrength: Double? = nil, numOutputs: Int? = nil, numInferenceSteps: Int? = nil, guidanceScale: Double? = nil, seed: String? = nil, initImage: String? = nil, mask: String? = nil) {
 				self.prompt = prompt
 				self.width = width
 				self.height = height
@@ -95,6 +171,8 @@ public struct Replicate {
 				self.numInferenceSteps = numInferenceSteps
 				self.guidanceScale = guidanceScale
 				self.seed = seed
+				self.initImage = initImage
+				self.mask = mask
 			}
 			
 			enum CodingKeys: String, CodingKey {
@@ -106,6 +184,8 @@ public struct Replicate {
 				case numInferenceSteps = "num_inference_steps"
 				case guidanceScale = "guidance_scale"
 				case seed
+				case initImage = "init_image"
+				case mask
 			}
 		}
 		
@@ -135,7 +215,7 @@ public struct Replicate {
 			public var input: Fractal.Input
 		}
 		
-		public init(input: Fractal.Input, id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, output: [String]? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
+		public init(input: Fractal.Input, id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, output: Output? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
 			self.input = input
 			self.id = id
 			self.version = version
@@ -163,7 +243,7 @@ public struct Replicate {
 		
 		public var status: Replicate.Status
 		
-		public var output: [String]?
+		public var output: Output?
 		
 		public var error: String?
 		
@@ -244,7 +324,7 @@ public struct Replicate {
 			public var input: LatentTraverse.Input
 		}
 		
-		public init(input: LatentTraverse.Input, id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, output: [String]? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
+		public init(input: LatentTraverse.Input, id: String, version: String, urls: Replicate.Urls, createdAt: String? = nil, completedAt: String? = nil, status: Replicate.Status, output: Output? = nil, error: String? = nil, logs: String? = nil, metrics: Replicate.Metrics) {
 			self.input = input
 			self.id = id
 			self.version = version
@@ -274,7 +354,7 @@ public struct Replicate {
 		
 		public var status: Replicate.Status
 		
-		public var output: [String]?
+		public var output: Output?
 		
 		public var error: String?
 		
@@ -335,6 +415,7 @@ public struct Replicate {
 		case stableDiffusionV1_5 = "f370727477aa04d12d8c0b5c4e3a22399296c21cd18ff67cd7619710630fe3cb"
 		case latentTraverse = "e22e77495f2fb83c34d5fae2ad8ab63c0a87b6b573b6208e1535b23b89ea66d6"
 		case fractal = "a2527c5074fc0cf9fa6015a40d75d080d1ddf7082fabe142f1ccd882c18fce61"
+		case clipInterrogator = "41fdb702d3fbe06c9835e39ac6ddfb8dee872835b22d6e8a7e0a467c793155f9"
 
 		public var Prediction: any ReplicatePrediction.Type {
 			switch self {
@@ -349,6 +430,8 @@ public struct Replicate {
 				return LatentTraverse.self
 			case .fractal:
 				return LatentTraverse.self
+			case .clipInterrogator:
+				return ClipInterrogator.self
 			}
 		}
 		
@@ -421,7 +504,7 @@ public protocol ReplicatePrediction: Codable, Hashable, Sendable {
 	var completedAt: String? { get set }
 	var status: Replicate.Status { get set }
 	var input: Input { get set }
-	var output: [String]? { get set }
+	var output: Output? { get set }
 	var error: String? { get set }
 	var logs: String? { get set }
 	var metrics: Replicate.Metrics { get set }
