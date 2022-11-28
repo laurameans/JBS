@@ -10,6 +10,7 @@ import Foundation
 public enum JBSError: Error {
 	case custom(_ text: String)
 	case noID
+	case badURL
 	
 	public var message: String {
 		switch self {
@@ -17,6 +18,8 @@ public enum JBSError: Error {
 			return text
 		case .noID:
 			return "No ID was found."
+		case .badURL:
+			return "URL could not be parsed."
 		}
 	}
 }
