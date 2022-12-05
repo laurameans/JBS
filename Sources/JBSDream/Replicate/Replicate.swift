@@ -116,7 +116,7 @@ public struct Replicate {
 		
 		public var input: Input
 		
-		public typealias Output = [String]
+		public typealias Output = ReplicateSDOutput
 		
 		public var id: String
 		
@@ -494,7 +494,7 @@ public protocol ReplicateOutput: DreamOutput {
 
 public protocol ReplicatePrediction: DreamPrediction where Status == Replicate.Status {
 	associatedtype Input: ReplicateInput
-	associatedtype Output: ReplicateOutput
+	associatedtype Output
 	associatedtype Create: ReplicateCreate
 //	associatedtype Status: Replicate.Status
 	var version: String { get set }
@@ -502,6 +502,10 @@ public protocol ReplicatePrediction: DreamPrediction where Status == Replicate.S
 	var createdAt: String? { get set }
 	var completedAt: String? { get set }
 	var metrics: Replicate.Metrics { get set }
+}
+
+public extension ReplicatePrediction {
+	public var idString: String { id as! String }
 }
 
 //extension Array: ReplicateOutput where Element: ReplicateOutput {

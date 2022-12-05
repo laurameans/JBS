@@ -10,9 +10,10 @@ import Foundation
 public protocol DreamPrediction: Codable, Sendable, Hashable, Identifiable {
 	associatedtype Create: DreamPredictionCreate
 	associatedtype Input: DreamInput
-	associatedtype Output: DreamOutput
+	associatedtype Output
 	associatedtype Status: DreamStatus
 	var id: ID { get set }
+	var idString: String { get }
 	var status: Status { get set }
 	var input: Input { get set }
 	var output: Output? { get set }
