@@ -80,8 +80,7 @@ public struct Replicate {
 		}
 		
 		public typealias Output = String
-		
-		
+		public typealias Status = Replicate.Status
 	}
 	
 	public struct StableDiffusion: ReplicatePrediction {
@@ -195,7 +194,7 @@ public struct Replicate {
 	public struct Fractal: ReplicatePrediction {
 		public static var slug: String { "fractal" }
 		
-		public struct Create: ReplicateCreate {
+		public struct Create: ReplicateCreate, Equatable {
 			public init() {
 				self.version = .fractal
 				self.webhookCompleted = nil
@@ -271,7 +270,7 @@ public struct Replicate {
 			}
 		}
 		
-		public struct Output: ReplicateOutput {
+		public struct Output: ReplicateOutput, Equatable {
 			public var mp4: String?
 			
 			enum CodingKeys: String, CodingKey {
@@ -401,7 +400,7 @@ public struct Replicate {
 		}
 	}
 	
-	public enum Status: String, RawRepresentable, Codable, Hashable, Sendable {
+	public enum Status: String, RawRepresentable, DreamStatus {
 		case starting
 		case processing
 		case succeeded
@@ -467,11 +466,11 @@ public struct Replicate {
 	}
 }
 
-public protocol ReplicateInput: Codable, Hashable, Sendable {
+public protocol ReplicateInput: DreamInput {
 	var costUSD: Double { get }
 }
 
-public protocol ReplicateCreate: Codable, Hashable, Sendable {
+public protocol ReplicateCreate: DreamPredictionCreate {
 	associatedtype Input: ReplicateInput
 	var version: Replicate.Version { get set }
 	var input: Input { get set }
@@ -489,36 +488,37 @@ public extension ReplicateCreate {
 	}
 }
 
-public protocol ReplicateOutput: Codable, Hashable, Sendable {
+public protocol ReplicateOutput: DreamOutput {
 	
 }
 
-public protocol ReplicatePrediction: Codable, Hashable, Sendable {
+public protocol ReplicatePrediction: DreamPrediction where Status == Replicate.Status {
 	associatedtype Input: ReplicateInput
 	associatedtype Output: ReplicateOutput
 	associatedtype Create: ReplicateCreate
-	var id: String { get set }
+//	associatedtype Status: Replicate.Status
 	var version: String { get set }
 	var urls: Replicate.Urls { get set }
 	var createdAt: String? { get set }
 	var completedAt: String? { get set }
-	var status: Replicate.Status { get set }
-	var input: Input { get set }
-	var output: Output? { get set }
-	var error: String? { get set }
-	var logs: String? { get set }
 	var metrics: Replicate.Metrics { get set }
-	static var slug: String { get }
 }
 
-public extension ReplicatePrediction {
-	static var inputType: Input.Type {
-		Input.self
-	}
-}
+//extension Array: ReplicateOutput where Element: ReplicateOutput {
+//
+//}
+//
+//
 
-extension Array: ReplicateOutput where Element: ReplicateOutput {
+public typealias ReplicateSDOutput = [String]
+extension ReplicateSDOutput: Codable, Hashable, Sendable { }
 
-}
+//extension ReplicateSDOutput: DreamOutput { }
 
-
+//extension Array: Codable, Hashable, Sendable where Element == String {
+////	func hash(into hasher: inout Hasher) {
+////		for element in self {
+////			hasher.combine(element)
+////		}
+////	}
+//}
