@@ -8,7 +8,7 @@
 import Foundation
 import JBS
 
-public enum DreamAppendage: StringLiteralType, RawRepresentable, Codable, CircularCaseSequence {
+public enum DreamAppendage: StringLiteralType, Swizzle {
 	case photoRealisticWideAngle
 	case photoRealistic
 	case portrait
