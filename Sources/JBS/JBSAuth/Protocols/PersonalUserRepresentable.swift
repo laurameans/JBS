@@ -10,9 +10,9 @@ import Foundation
 public protocol PersonalUserRepresentable: Codable, Identifiable, Hashable {
 	associatedtype Global: GlobalUserRepresentable
 	var email: String? { get set }
-	var emailConfirmed: Bool { get set }
+	var emailConfirmed: Bool? { get set }
 	var phone: String? { get set }
-	var phoneConfirmed: Bool { get set }
+	var phoneConfirmed: Bool? { get set }
 	var token: String? { get set }
 	var global: Global { get set }
 	var id: UUID? { get }
