@@ -65,7 +65,7 @@ public struct GeneratedImage: Identifiable, Hashable {
 		self.generationTimeSeconds = generationTimeSeconds
 	}
 #else
-	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: SchedulerType, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?) {
+	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
