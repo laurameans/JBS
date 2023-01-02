@@ -8,7 +8,8 @@
 import Foundation
 import JBS
 
-public protocol Swizzle: Codable, RawRepresentable, Hashable, CircularCaseSequence {
+public protocol Swizzle: Codable, Equatable, Hashable, RawRepresentable, Hashable, CircularCaseSequence {
 	var nickName: String { get }
 	var text: String { get }
+	static var slug: String { get }
 }
