@@ -9,6 +9,8 @@ import Foundation
 import JBS
 
 public enum DreamAppendage: StringLiteralType, Swizzle {
+	public var negativeText: String? { nil }
+	
 	public static var slug: String { "dream" }
 	
 	case photoRealisticWideAngle

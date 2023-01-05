@@ -11,5 +11,6 @@ import JBS
 public protocol Swizzle: Codable, Equatable, Hashable, RawRepresentable, Hashable, CircularCaseSequence {
 	var nickName: String { get }
 	var text: String { get }
+	var negativeText: String? { get }
 	static var slug: String { get }
 }
