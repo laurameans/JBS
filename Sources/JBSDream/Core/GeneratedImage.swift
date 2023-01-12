@@ -15,6 +15,7 @@ public struct UserGeneratedImage<User: MicroUserRepresentable>: Codable, Identif
 	public var user: User
 	public var generatedImage: GeneratedImage
 	
+	
 	public init(user: User, generatedImage: GeneratedImage) {
 		self.user = user
 		self.generatedImage = generatedImage
