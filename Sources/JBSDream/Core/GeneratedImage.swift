@@ -36,6 +36,7 @@ public struct GeneratedImage: Identifiable, Hashable {
 	public var remoteImageURL: String?
 	public var deviceModel: String?
 	public var generationTimeSeconds: Float?
+	public var hidePrompt: Bool?
 #if !os(Linux)
 	public var image: NSUIImage?
 	public static var libraryDirectory: URL {
@@ -49,7 +50,7 @@ public struct GeneratedImage: Identifiable, Hashable {
 		Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("jpeg")
 	}
 	
-	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, image: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?) {
+	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, image: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -64,9 +65,10 @@ public struct GeneratedImage: Identifiable, Hashable {
 		self.remoteImageURL = remoteImageURL
 		self.deviceModel = deviceModel
 		self.generationTimeSeconds = generationTimeSeconds
+		self.hidePrompt = hidePrompt
 	}
 #else
-	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?) {
+	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -80,6 +82,7 @@ public struct GeneratedImage: Identifiable, Hashable {
 		self.remoteImageURL = remoteImageURL
 		self.deviceModel = deviceModel
 		self.generationTimeSeconds = generationTimeSeconds
+		self.hidePrompt = hidePrompt
 	}
 #endif
 	public enum CodingKeys: CodingKey {
@@ -96,6 +99,7 @@ public struct GeneratedImage: Identifiable, Hashable {
 		case remoteImageURL
 		case deviceModel
 		case generationTimeSeconds
+		case hidePrompt
 	}
 }
 
@@ -132,7 +136,8 @@ extension GeneratedImage: Codable {
 		let guidanceScale = try container.decodeIfPresent(Float.self, forKey: .guidanceScale)
 		let deviceModel = try container.decodeIfPresent(String.self, forKey: .deviceModel)
 		let generationTimeSeconds = try container.decodeIfPresent(Float.self, forKey: .generationTimeSeconds)
-		self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds)
+		let hidePrompt = try container.decodeIfPresent(Bool.self, forKey: .hidePrompt)
+		self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt)
 		let imageLocation = Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("jpeg")
 		let data = try? Data(contentsOf: imageLocation)
 		if let data = data {
@@ -155,6 +160,7 @@ extension GeneratedImage: Codable {
 		try container.encode(self.remoteImageURL, forKey: .remoteImageURL)
 		try container.encode(self.deviceModel, forKey: .deviceModel)
 		try container.encode(self.generationTimeSeconds, forKey: .generationTimeSeconds)
+		try container.encode(self.hidePrompt, forKey: .hidePrompt)
 	}
 }
 
