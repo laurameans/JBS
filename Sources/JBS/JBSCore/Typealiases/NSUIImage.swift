@@ -20,3 +20,4 @@ public typealias NSUIImage = UIImage
 public typealias NSUIImage = NSImage
 #endif
 #endif
+
