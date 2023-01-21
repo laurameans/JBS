@@ -8,6 +8,19 @@
 import Foundation
 import JBS
 
+public protocol DiffusionGenerated: Identifiable, Hashable {
+	var id: UUID { get set }
+	var prompt: String { get set }
+	var negativePrompt: String { get set }
+	var stepCount: Int { get set }
+	var seed: Int { get set }
+	var createdDate: Date { get set }
+	var scheduler: String? { get set }
+	var guidanceScale: Float? { get set }
+	var deviceModel: String? { get set }
+	var generationTimeSeconds: Float? { get set }
+	var hidePrompt: Bool? { get set }
+}
 
 public struct UserGeneratedImage<User: MicroUserRepresentable>: Codable, Identifiable, Hashable {
 	public var id: UUID? { generatedImage.remoteID }
@@ -22,7 +35,7 @@ public struct UserGeneratedImage<User: MicroUserRepresentable>: Codable, Identif
 	}
 }
 
-public struct GeneratedImage: Identifiable, Hashable {
+public struct GeneratedImage: DiffusionGenerated {
 	public var remoteID: UUID?
 	public var id: UUID = UUID()
 	public var prompt: String
