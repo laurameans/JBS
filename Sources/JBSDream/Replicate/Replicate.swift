@@ -63,19 +63,22 @@ public struct Replicate {
 		}
 		
 		public struct Input: ReplicateInput {
-			public init(image: String, clipModelName: String = "ViT-L/14") {
+			public init(image: String, clipModelName: String = "ViT-H-14/laion2b_s32b_b79k", mode: String = "fast") {
 				self.image = image
 				self.clipModelName = clipModelName
+				self.mode = mode
 			}
 			
 			public var costUSD: Double { 0.14 }
 			/// ImageURL
 			public var image: String
 			public var clipModelName: String
+			public var mode: String?
 			
 			public enum CodingKeys: String, CodingKey {
 				case image = "image"
 				case clipModelName = "clip_model_name"
+				case mode = "mode"
 			}
 		}
 		
