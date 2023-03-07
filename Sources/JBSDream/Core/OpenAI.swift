@@ -76,7 +76,7 @@ public struct OpenAI {
 		public var finishReason: String?
 	}
 	
-	public struct ChatMessage: Codable {
+	public struct ChatMessage: Codable, Hashable {
 		public init(role: OpenAI.ChatMessage.Role, content: String) {
 			self.role = role
 			self.content = content

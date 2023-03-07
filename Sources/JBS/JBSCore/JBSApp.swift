@@ -62,5 +62,4 @@ public extension JBSAppName {
 	static var outtakes: JBSAppName { JBSAppName(rawValue: "outtakes") }
 	static var globeos: JBSAppName { JBSAppName(rawValue: "globeos") }
 	static var revolusun: JBSAppName { JBSAppName(rawValue: "revolusun") }
-	static var skatedex: JBSAppName { JBSAppName(rawValue: "skatedex") }
 }
