@@ -33,14 +33,7 @@ public struct ReportSchema: RawRepresentable, Equatable, Sendable, Codable {
 	}
 	
 	public var rawValue: String
-	
-//	enum Values: String, RawRepresentable, CustomStringConvertible {
-//		case
-//	}
-	
 	public typealias RawValue = String
-	
-	
 }
 
 public extension ReportSchema {
