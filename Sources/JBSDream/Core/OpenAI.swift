@@ -17,7 +17,7 @@ public struct OpenAI {
 	}
 	
 	public struct ChatRequest: Codable {
-		public init(model: String = "gpt-3.5-turbo", messages: [OpenAI.ChatMessage], temperature: Double? = 1, topP: Double? = 1, n: Int? = 1, stream: Bool = false, stop: [String]? = nil, presencePenalty: Double? = 0, frequencyPenalty: Double? = 0, user: String? = nil) {
+		public init(model: String = "gpt-3.5-turbo", messages: [OpenAI.ChatMessage], temperature: Double? = 1, topP: Double? = 1, n: Int? = 1, stream: Bool = false, stop: [String]? = nil, presencePenalty: Double? = 0, frequencyPenalty: Double? = 0, user: String? = nil, openAIKey: String) {
 			self.model = model
 			self.messages = messages
 			self.temperature = temperature
@@ -28,6 +28,7 @@ public struct OpenAI {
 			self.presencePenalty = presencePenalty
 			self.frequencyPenalty = frequencyPenalty
 			self.user = user
+			self.openAIKey = openAIKey
 		}
 		
 		public var model: String = "gpt-3.5-turbo"
@@ -47,6 +48,7 @@ public struct OpenAI {
 		public var frequencyPenalty: Double? = 0
 		/// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
 		public var user: String?
+		public var openAIKey: String
 		
 	}
 	
