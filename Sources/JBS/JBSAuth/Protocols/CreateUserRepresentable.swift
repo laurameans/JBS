@@ -14,8 +14,12 @@ public protocol CreateUserRepresentable: Codable, Hashable {
 	var password: String { get set }
 	var hasAcceptedTermsAndConditions: Bool { get set }
 	var hasAcceptedPrivacyPolicy: Bool { get set }
+	var useUsername: Bool { get }
+	var useFirstLast: Bool { get }
+	var firstName: String { get set }
+	var lastName: String { get set }
 	
 	init()
 	
-	init(username: String, email: String, name: String, password: String, hasAcceptedTermsAndConditions: Bool, hasAcceptedPrivacyPolicy: Bool)
+	init(username: String, email: String, name: String, firstName: String, lastName: String, password: String, hasAcceptedTermsAndConditions: Bool, hasAcceptedPrivacyPolicy: Bool)
 }
