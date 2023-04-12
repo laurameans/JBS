@@ -195,6 +195,16 @@ public class JSONAny: Codable, Equatable, Hashable, @unchecked Sendable {
 		}
 	}
 	
+	public static func from(value: Any) -> JSONAny {
+		do {
+			let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
+			let decoder = JSONDecoder()
+			return try decoder.decode(JSONAny.self, from: jsonData)
+		} catch {
+			fatalError("JSONAny initialization failed")
+		}
+	}
+	
 	public func encode(to encoder: Encoder) throws {
 		if let arr = self.value as? [Any] {
 			var container = encoder.unkeyedContainer()
@@ -228,3 +238,10 @@ class MyCodingKey : CodingKey {
 		return key
 	}
 }
+//
+//extension Int64: Diffable { }
+//extension Bool: Diffable { }
+//extension String: Diffable { }
+//extension Double: Diffable { }
+//extension Int: Diffable { }
+//extension JSONNull: Diffable { }

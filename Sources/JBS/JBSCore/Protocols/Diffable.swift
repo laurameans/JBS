@@ -16,7 +16,7 @@ public extension Diffable where Self: Equatable {
 		return lhs.diff(with: rhs).isEmpty
 	}
 	
-	func diff(with other: Self) -> [String: Any] {
+	func diff<T: Diffable>(with other: T) -> [String: Any] {
 		let mirror1 = Mirror(reflecting: self)
 		let mirror2 = Mirror(reflecting: other)
 		

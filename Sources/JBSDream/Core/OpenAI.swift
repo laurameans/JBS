@@ -25,6 +25,20 @@ public struct OpenAI {
 		public var request: ChatRequest
 		public var key: String
 	}
+    
+	public struct UserChatRequest: Codable {
+		public init(request: OpenAI.ChatRequest, title: String? = nil, id: UUID = UUID()) {
+			self.request = request
+			self.createdDate = Date()
+			self.title = title
+			self.id = id
+		}
+		
+        public var request: ChatRequest
+		public var createdDate: Date
+		public var title: String?
+		public var id: UUID
+    }
 	
 	public struct ChatRequest: Codable {
 		public init(model: String = "gpt-3.5-turbo", messages: [OpenAI.ChatMessage], temperature: Double? = 1, topP: Double? = 1, n: Int? = 1, stream: Bool = false, stop: [String]? = nil, presencePenalty: Double? = 0, frequencyPenalty: Double? = 0, user: String? = nil) {
