@@ -9,7 +9,7 @@ import Foundation
 
 public struct JBSUser {
 	
-	public struct Micro: MicroUserRepresentable {
+    public struct Micro: MicroUserRepresentable {
 		public init(id: UUID? = nil, name: String? = nil, username: String, profilePicURL: String? = nil) {
 			self.id = id
 			self.name = name
