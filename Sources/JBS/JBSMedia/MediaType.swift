@@ -17,12 +17,14 @@ public enum MediaType: StringLiteralType, RawRepresentable, Codable {
 	case data
 	case zip
 	case m4s
+    case heic
 	
 	public var contentType: String {
 		switch self {
 			case .image:
 				return "image/jpeg"
-			
+            case .heic:
+                return "image/heic"
 			case .pdf:
 				return "application/pdf"
 			case .audio:

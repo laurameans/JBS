@@ -8,7 +8,7 @@
 import Foundation
 
 public struct PromptSet: Codable, Hashable {
-	public init(prompt: String, negativePrompt: String, keyframe: Int) {
+	public init(prompt: String, negativePrompt: String = "", keyframe: Int = 0) {
 		self.prompt = prompt
 		self.negativePrompt = negativePrompt
 		self.keyframe = keyframe

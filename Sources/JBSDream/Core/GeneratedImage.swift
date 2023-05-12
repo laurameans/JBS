@@ -46,12 +46,18 @@ public struct GeneratedImage: DiffusionGenerated {
 	public var createdDate: Date
 	public var scheduler: String?
 	public var guidanceScale: Float?
+    public var imageDestruction: Float?
 	public var remoteImageURL: String?
+    public var remoteOriginalImageURL: String?
+    public var controlImageURLs: [String]?
+    public var presetID: Int?
 	public var deviceModel: String?
 	public var generationTimeSeconds: Float?
 	public var hidePrompt: Bool?
 #if !os(Linux)
 	public var image: NSUIImage?
+    public var originalImage: NSUIImage?
+    public var controlImages: [NSUIImage]?
 	public static var libraryDirectory: URL {
 		FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("com.outtakes.ops.diffusion.library", isDirectory: true)
 	}
@@ -60,10 +66,10 @@ public struct GeneratedImage: DiffusionGenerated {
 		Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("odiff")
 	}
 	public var imageLocation: URL {
-		Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("jpeg")
+		Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("heic")
 	}
 	
-	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, image: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -73,15 +79,20 @@ public struct GeneratedImage: DiffusionGenerated {
 		self.disableSafety = disableSafety
 		self.createdDate = createdDate
 		self.image = image
+        self.originalImage = originalImage
 		self.scheduler = scheduler
 		self.guidanceScale = guidanceScale
 		self.remoteImageURL = remoteImageURL
+        self.remoteOriginalImageURL = remoteOriginalImageURL
+        self.controlImageURLs = controlImageURLs
+        self.imageDestruction = imageDestruction
 		self.deviceModel = deviceModel
 		self.generationTimeSeconds = generationTimeSeconds
 		self.hidePrompt = hidePrompt
+        self.presetID = presetID
 	}
 #else
-	public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -93,9 +104,13 @@ public struct GeneratedImage: DiffusionGenerated {
 		self.scheduler = scheduler
 		self.guidanceScale = guidanceScale
 		self.remoteImageURL = remoteImageURL
+        self.remoteOriginalImageURL = remoteOriginalImageURL
+        self.controlImageURLs = controlImageURLs
+        self.imageDestruction = imageDestruction
 		self.deviceModel = deviceModel
 		self.generationTimeSeconds = generationTimeSeconds
 		self.hidePrompt = hidePrompt
+        self.presetID = presetID
 	}
 #endif
 	public enum CodingKeys: CodingKey {
@@ -110,9 +125,13 @@ public struct GeneratedImage: DiffusionGenerated {
 		case scheduler
 		case guidanceScale
 		case remoteImageURL
+        case remoteOriginalImageURL
+        case controlImageURLs
+        case imageDestruction
 		case deviceModel
 		case generationTimeSeconds
 		case hidePrompt
+        case presetID
 	}
 }
 
@@ -150,8 +169,18 @@ extension GeneratedImage: Codable {
 		let deviceModel = try container.decodeIfPresent(String.self, forKey: .deviceModel)
 		let generationTimeSeconds = try container.decodeIfPresent(Float.self, forKey: .generationTimeSeconds)
 		let hidePrompt = try container.decodeIfPresent(Bool.self, forKey: .hidePrompt)
-		self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt)
-		let imageLocation = Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("jpeg")
+        let remoteOriginalImageURL = try container.decodeIfPresent(String.self, forKey: .remoteOriginalImageURL)
+        let controlImageURLs = try container.decodeIfPresent([String].self, forKey: .controlImageURLs)
+        let imageDestruction = try container.decodeIfPresent(Float.self, forKey: .imageDestruction)
+        let presetID = try container.decodeIfPresent(Int.self, forKey: .presetID)
+        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID)
+        let base = Self.libraryDirectory.appendingPathComponent(id.uuidString)
+        var imageLocation: URL!
+        if FileManager.default.fileExists(atPath: base.appendingPathExtension("heic").path) {
+            imageLocation = base.appendingPathExtension("heic")
+        } else {
+            imageLocation = base.appendingPathExtension("jpeg")
+        }
 		let data = try? Data(contentsOf: imageLocation)
 		if let data = data {
 			self.image = NSUIImage(data: data)
@@ -174,9 +203,19 @@ extension GeneratedImage: Codable {
 		try container.encode(self.deviceModel, forKey: .deviceModel)
 		try container.encode(self.generationTimeSeconds, forKey: .generationTimeSeconds)
 		try container.encode(self.hidePrompt, forKey: .hidePrompt)
+        try container.encode(self.remoteOriginalImageURL, forKey: .remoteOriginalImageURL)
+        try container.encode(self.controlImageURLs, forKey: .controlImageURLs)
+        try container.encode(self.imageDestruction, forKey: .imageDestruction)
+        try container.encode(self.presetID, forKey: .presetID)
 	}
 }
 
 #else
 extension GeneratedImage: Codable { }
 #endif
+
+public extension GeneratedImage {
+    static var empty: GeneratedImage {
+        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil)
+    }
+}
