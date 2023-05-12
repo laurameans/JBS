@@ -19,6 +19,7 @@ public struct Preset: Codable, Equatable, Hashable {
     public var promptSet: PromptSet
     public var id: Int
     
+    #if !os(Linux)
     public var image: NSUIImage? {
         if let url = Bundle.main.url(forResource: "preset-\(id)", withExtension: "jpeg", subdirectory: "presets"), let data = try? Data(contentsOf: url) {
             return NSUIImage(data: data)
@@ -26,6 +27,6 @@ public struct Preset: Codable, Equatable, Hashable {
             return nil
         }
     }
-    
+    #endif
 }
 
