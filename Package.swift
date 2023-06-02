@@ -27,7 +27,7 @@ let package = Package(
 	
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/malcommac/SwiftDate.git", from: "7.0.0"),
+        .package(url: "https://github.com/JustinMeans/SwiftDate.git", .branch("sticky")),
     ],
     targets: [
 		.target(name: "JBS", dependencies: [
