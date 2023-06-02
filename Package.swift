@@ -27,10 +27,12 @@ let package = Package(
 	
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/JustinMeans/SwiftDate", .branch("master")),
     ],
     targets: [
-		.target(name: "JBS"),
+		.target(name: "JBS", dependencies: [
+            .product(name: "SwiftDate", package: "SwiftDate")
+        ]),
 		.target(name: "JBSNews"),
 		.target(name: "JBSPay", dependencies: [
 			"JBS"
