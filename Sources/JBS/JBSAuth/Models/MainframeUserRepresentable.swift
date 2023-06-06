@@ -8,17 +8,18 @@
 import Foundation
 
 public struct MainframeUserRepresentable {
-	public struct Micro: Codable, Hashable, Equatable, Sendable {
-		public init(username: String, profilePicURL: String? = nil, lastConnected: Date? = nil, name: String? = nil, appName: JBSAppName, id: UUID? = nil, lastIPLog: IPLog? = nil) {
-			self.username = username
-			self.profilePicURL = profilePicURL
-			self.lastConnected = lastConnected
-			self.name = name
-			self.appName = appName
-			self.id = id
-			self.lastIPLog = lastIPLog
-		}
-		
+    public struct Micro: Codable, Hashable, Equatable, Sendable {
+        public init(username: String, profilePicURL: String? = nil, lastConnected: Date? = nil, name: String? = nil, appName: JBSAppName, id: UUID? = nil, lastIPLog: IPLog? = nil, dailyEngagement: [String: Engagement]?) {
+            self.username = username
+            self.profilePicURL = profilePicURL
+            self.lastConnected = lastConnected
+            self.name = name
+            self.appName = appName
+            self.id = id
+            self.lastIPLog = lastIPLog
+            self.dailyEngagement = dailyEngagement
+        }
+        
 		public var username: String
 		public var profilePicURL: String?
 		public var lastConnected: Date?
@@ -26,5 +27,6 @@ public struct MainframeUserRepresentable {
 		public var appName: JBSAppName
 		public var id: UUID?
 		public var lastIPLog: IPLog?
+        public var dailyEngagement: [String: Engagement]?
 	}
 }
