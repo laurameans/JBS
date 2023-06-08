@@ -14,6 +14,7 @@ public enum MainframeEvent: Codable, Sendable {
     case connected
     case statistics(_ statistics: [MonitorStatisticsV2])
     case systemMetrics(_ metrics: [JBSAppName: [MonitorStatisticsV2]])
+    case concurrentUsers(_ value: [JBSAppName: [MainframeUserRepresentable.Micro]])
     
     public func encoded() throws -> Data {
         print(self)
