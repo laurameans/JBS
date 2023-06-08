@@ -17,7 +17,7 @@ public enum MainframeEvent: Codable, Sendable {
     case concurrentUsers(_ value: [JBSAppName: [MainframeUserRepresentable.Micro]])
     
     public func encoded() throws -> Data {
-        print(self)
+//        print(self)
         return try JSONEncoder().encode(self)
     }
 }
