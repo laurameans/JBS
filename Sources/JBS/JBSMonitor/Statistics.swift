@@ -21,6 +21,33 @@ public struct MonitorStatistics: Codable, Hashable {
 	public var app: JBSApp
 }
 
+public struct MonitorSystemMetrics: Codable, Hashable, Equatable {
+    public init(virtualMemoryBytes: Int, residentMemoryBytes: Int, startTimeSeconds: Int, cpuSeconds: Int, maxFileDescriptors: Int, openFileDescriptors: Int, cpuUsage: Double) {
+        self.virtualMemoryBytes = virtualMemoryBytes
+        self.residentMemoryBytes = residentMemoryBytes
+        self.startTimeSeconds = startTimeSeconds
+        self.cpuSeconds = cpuSeconds
+        self.maxFileDescriptors = maxFileDescriptors
+        self.openFileDescriptors = openFileDescriptors
+        self.cpuUsage = cpuUsage
+    }
+    
+    /// Virtual memory size in bytes.
+    public var virtualMemoryBytes: Int
+    /// Resident memory size in bytes.
+    public var residentMemoryBytes: Int
+    /// Start time of the process since unix epoch in seconds.
+    public var startTimeSeconds: Int
+    /// Total user and system CPU time spent in seconds.
+    public var cpuSeconds: Int
+    /// Maximum number of open file descriptors.
+    public var maxFileDescriptors: Int
+    /// Number of open file descriptors.
+    public var openFileDescriptors: Int
+    /// CPU usage percentage.
+    public var cpuUsage: Double
+}
+
 public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
 	public init(key: MonitorStatisticsV2.Key, value: Double, title: String? = nil, roundingLevel: Int, position: MonitorStatisticsV2.Position, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
 		self.key = key
@@ -67,6 +94,39 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
 		case bottom
 	}
 }
+
+public extension MonitorStatisticsV2 {
+    static func + (lhs: MonitorStatisticsV2, rhs: MonitorStatisticsV2) -> MonitorStatisticsV2 {
+        guard lhs.key.rawValue == rhs.key.rawValue else {
+            fatalError("Mismatched keys: \(lhs.key.rawValue) and \(rhs.key.rawValue)")
+        }
+        
+        return MonitorStatisticsV2(key: lhs.key,
+                                   value: lhs.value + rhs.value,
+                                   title: lhs.title ?? rhs.title,
+                                   roundingLevel: lhs.roundingLevel,
+                                   position: lhs.position,
+                                   createdDate: lhs.createdDate,
+                                   updatedDate: Date(), // Mark the updated time as the current time
+                                   deletedDate: lhs.deletedDate ?? rhs.deletedDate)
+    }
+    
+    static func - (lhs: MonitorStatisticsV2, rhs: MonitorStatisticsV2) -> MonitorStatisticsV2 {
+        guard lhs.key.rawValue == rhs.key.rawValue else {
+            fatalError("Mismatched keys: \(lhs.key.rawValue) and \(rhs.key.rawValue)")
+        }
+        
+        return MonitorStatisticsV2(key: lhs.key,
+                                   value: lhs.value - rhs.value,
+                                   title: lhs.title ?? rhs.title,
+                                   roundingLevel: lhs.roundingLevel,
+                                   position: lhs.position,
+                                   createdDate: lhs.createdDate,
+                                   updatedDate: Date(), // Mark the updated time as the current time
+                                   deletedDate: lhs.deletedDate ?? rhs.deletedDate)
+    }
+}
+
 
 public extension MonitorStatisticsV2.Key {
 	static var emailsSent: MonitorStatisticsV2.Key {

@@ -31,7 +31,7 @@ public struct JBSApp: Codable, Hashable {
 	public var id: UUID?
 }
 
-public struct JBSAppName: Codable, RawRepresentable, Hashable {
+public struct JBSAppName: Codable, RawRepresentable, Hashable, Sendable {
 	public var rawValue: String
 	
 	public init(rawValue: String) {
