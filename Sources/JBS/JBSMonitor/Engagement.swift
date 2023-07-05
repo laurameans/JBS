@@ -20,7 +20,7 @@ public struct Engagement: Codable, Hashable, Equatable {
     
     /// A higher value indicates the user is more active versus inactive
     public var ratioActive: Double {
-        durationSeconds * (Double(activity) / Double(pulses))
+        Double(activity) / Double(pulses)
     }
     
     public var activeSeconds: Double {
