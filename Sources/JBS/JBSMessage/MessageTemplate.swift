@@ -9,6 +9,8 @@ import Foundation
 
 public protocol MessageTemplate {
 	static var id: Int { get }
-//	var subject: String? { get set }
-//	var body: String? { get set }
+	var subject: String? { get set }
+	var body: String? { get set }
+    var footer: String? { get set }
 }
+
