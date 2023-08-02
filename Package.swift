@@ -28,9 +28,11 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
 //        .package(url: "https://github.com/JustinMeans/WebsocketActorSystem", .branch("main"))
+        .package(url: "https://github.com/justinmeans/SwiftDate/", .branch("master"))
     ],
     targets: [
 		.target(name: "JBS", dependencies: [
+            .product(name: "SwiftDate", package: "SwiftDate")
 //            .product(name: "WebsocketActorSystem", package: "WebsocketActorSystem")
         ]),
 		.target(name: "JBSNews"),
