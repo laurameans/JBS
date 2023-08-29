@@ -8,7 +8,7 @@
 import Foundation
 
 @propertyWrapper
-public struct StringValueDecodable<T: Codable & Hashable & StringInitable>: Codable, Hashable {
+public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Sendable>: Codable, Hashable, Sendable {
 	
 	public var wrappedValue: T?
 	
