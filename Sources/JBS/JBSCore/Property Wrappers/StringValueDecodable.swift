@@ -59,6 +59,12 @@ extension Decimal: StringInitable {
 	}
 }
 
+extension Float: StringInitable {
+    public init?(string: String) {
+        self.init(string)
+    }
+}
+
 extension Int: StringInitable {
 	public init?(string: String) {
 		self.init(string)
