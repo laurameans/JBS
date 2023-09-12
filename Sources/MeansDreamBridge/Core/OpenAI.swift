@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JBS
+import MeansBridge
 
 public struct OpenAI {
 	public static var encoder: JSONEncoder {

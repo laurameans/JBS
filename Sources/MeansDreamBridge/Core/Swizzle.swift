@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JBS
+import MeansBridge
 
 public protocol Swizzle: Codable, Equatable, Hashable, RawRepresentable, Hashable, CircularCaseSequence {
 	var nickName: String { get }

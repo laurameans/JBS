@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JBS
+import MeansBridge
 
 extension String: ReplicateOutput { }
 

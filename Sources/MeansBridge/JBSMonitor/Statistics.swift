@@ -8,7 +8,7 @@
 import Foundation
 
 public struct MonitorStatistics: Codable, Hashable {
-	public init(dailyActiveUsers: Int, monthlyActiveUsers: Int, totalUsers: Int, app: JBSApp) {
+	public init(dailyActiveUsers: Int, monthlyActiveUsers: Int, totalUsers: Int, app: MeansBridgeApp) {
 		self.dailyActiveUsers = dailyActiveUsers
 		self.monthlyActiveUsers = monthlyActiveUsers
 		self.totalUsers = totalUsers
@@ -18,7 +18,7 @@ public struct MonitorStatistics: Codable, Hashable {
 	public var dailyActiveUsers: Int
 	public var monthlyActiveUsers: Int
 	public var totalUsers: Int
-	public var app: JBSApp
+	public var app: MeansBridgeApp
 }
 
 public struct MonitorSystemMetrics: Codable, Hashable, Equatable {

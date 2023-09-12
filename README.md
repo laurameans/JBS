@@ -1,3 +1,3 @@
-# JBS – Justin Bridge Services
+# MeansBridge – Justin Bridge Services
 
-Domain Transfer Object (DTO) library for bridging JWS to JCS 
+Domain Transfer Object (DTO) library for bridging MeansServer to MeansClient 

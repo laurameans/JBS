@@ -12,7 +12,7 @@ public extension URL {
 		if let url = URL(string: string) {
 			self = url
 		} else {
-			throw JBSError.badURL
+			throw MeansBridgeError.badURL
 		}
 	}
 }

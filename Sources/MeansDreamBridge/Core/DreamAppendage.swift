@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JBS
+import MeansBridge
 
 public enum DreamAppendage: StringLiteralType, Swizzle {
 	public var negativeText: String? { nil }

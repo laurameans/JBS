@@ -17,7 +17,7 @@ public struct Coordinates: Codable, Equatable, Hashable {
 	}
 	
 	public init(arrayRepresentationLongLat: [Double]) throws {
-		guard arrayRepresentationLongLat.indices.contains(0) && arrayRepresentationLongLat.indices.contains(1) else { throw JBSError.custom("Longitude and Latitude not provided within array.") }
+		guard arrayRepresentationLongLat.indices.contains(0) && arrayRepresentationLongLat.indices.contains(1) else { throw MeansBridgeError.custom("Longitude and Latitude not provided within array.") }
 		self.longitude = arrayRepresentationLongLat[0]
 		self.latitude = arrayRepresentationLongLat[1]
 	}

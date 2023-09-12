@@ -103,7 +103,7 @@ public struct IPLog: Codable, Hashable {
 
 public struct MainframeIPLog: Codable, Hashable {
 	public struct Micro: Codable, Hashable, Identifiable {
-		public init(id: UUID?, latitude: Double? = nil, longitude: Double? = nil, username: String? = nil, profilePicURL: String? = nil, lastConnected: Date? = nil, name: String? = nil, userID: UUID? = nil, appName: JBSAppName) {
+		public init(id: UUID?, latitude: Double? = nil, longitude: Double? = nil, username: String? = nil, profilePicURL: String? = nil, lastConnected: Date? = nil, name: String? = nil, userID: UUID? = nil, appName: MeansBridgeAppName) {
 			self.id = id
 			self.latitude = latitude
 			self.longitude = longitude
@@ -123,7 +123,7 @@ public struct MainframeIPLog: Codable, Hashable {
 		public var lastConnected: Date?
 		public var name: String?
 		public var userID: UUID?
-		public var appName: JBSAppName
+		public var appName: MeansBridgeAppName
 	}
 	
 	public struct Global: Codable, Hashable {

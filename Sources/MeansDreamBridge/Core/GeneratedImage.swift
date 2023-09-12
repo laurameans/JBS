@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JBS
+import MeansBridge
 
 public protocol DiffusionGenerated: Identifiable, Hashable {
 	var id: UUID { get set }

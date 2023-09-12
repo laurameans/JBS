@@ -9,12 +9,12 @@ import Foundation
 
 public enum MainframeEvent: Codable, Sendable {
     case log(_ log: String)
-    case authenticateServer(_ token: String, appName: JBSAppName)
+    case authenticateServer(_ token: String, appName: MeansBridgeAppName)
     case authenticateClient(_ token: String)
     case connected
     case statistics(_ statistics: [MonitorStatisticsV2])
-    case systemMetrics(_ metrics: [JBSAppName: [MonitorStatisticsV2]])
-    case concurrentUsers(_ value: [JBSAppName: [MainframeUserRepresentable.Micro]])
+    case systemMetrics(_ metrics: [MeansBridgeAppName: [MonitorStatisticsV2]])
+    case concurrentUsers(_ value: [MeansBridgeAppName: [MainframeUserRepresentable.Micro]])
     
     public func encoded() throws -> Data {
 //        print(self)

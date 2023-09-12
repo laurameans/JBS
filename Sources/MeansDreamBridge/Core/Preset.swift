@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JBS
+import MeansBridge
 
 public struct Preset: Codable, Equatable, Hashable {
     public init(title: String, promptSet: PromptSet, id: Int) {

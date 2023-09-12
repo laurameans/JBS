@@ -1,3 +1,3 @@
-struct JBS {
+struct MeansBridge {
     var text = "Hello, World!"
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum JBSError: Error {
+public enum MeansBridgeError: Error {
 	case custom(_ text: String)
 	case noID
 	case badURL

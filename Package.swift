@@ -2,14 +2,14 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 // -=-=-=-=-=-=-=-=-=-=-=-
-// JUSTIN BRIDGE SERVICES
+// MEANS BRIDGE
 // -=-=-=-=-=-=-=-=-=-=-=-
 
 
 import PackageDescription
 
 let package = Package(
-    name: "JBS",
+    name: "MeansBridge",
 	platforms: [
 		.macOS(.v10_15),
 		.iOS(.v13),
@@ -19,10 +19,10 @@ let package = Package(
 	],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-		.library(name: "JBS", targets: ["JBS"]),
-		.library(name: "JBSNews", targets: ["JBSNews"]),
-		.library(name: "JBSDream", targets: ["JBSDream"]),
-		.library(name: "JBSPay", targets: ["JBSPay"])
+		.library(name: "MeansBridge", targets: ["MeansBridge"]),
+		.library(name: "MeansNewsBridge", targets: ["MeansNewsBridge"]),
+		.library(name: "MeansDreamBridge", targets: ["MeansDreamBridge"]),
+		.library(name: "MeansPayBridge", targets: ["MeansPayBridge"])
     ],
 	
     dependencies: [
@@ -31,17 +31,17 @@ let package = Package(
         .package(url: "https://github.com/justinmeans/SwiftDate/", .branch("master"))
     ],
     targets: [
-		.target(name: "JBS", dependencies: [
+		.target(name: "MeansBridge", dependencies: [
             .product(name: "SwiftDate", package: "SwiftDate")
 //            .product(name: "WebsocketActorSystem", package: "WebsocketActorSystem")
         ]),
-		.target(name: "JBSNews"),
-		.target(name: "JBSPay", dependencies: [
-			"JBS"
+		.target(name: "MeansNewsBridge"),
+		.target(name: "MeansPayBridge", dependencies: [
+			"MeansBridge"
 		]),
-		.target(name: "JBSDream", dependencies: [
-			"JBS",
-			"JBSPay"
+		.target(name: "MeansDreamBridge", dependencies: [
+			"MeansBridge",
+			"MeansPayBridge"
 		]),
     ]
 )

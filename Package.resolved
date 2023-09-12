@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftdate",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/justinmeans/SwiftDate/",
+      "state" : {
+        "branch" : "master",
+        "revision" : "5b59e313c46a2c225c834f5e17475c14eb8fa2c1"
+      }
+    }
+  ],
+  "version" : 2
+}

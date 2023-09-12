@@ -1,11 +1,11 @@
 import XCTest
-@testable import JBS
+@testable import MeansBridge
 
-final class JBSTests: XCTestCase {
+final class MeansBridgeTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(JBS().text, "Hello, World!")
+        XCTAssertEqual(MeansBridge().text, "Hello, World!")
     }
 }
