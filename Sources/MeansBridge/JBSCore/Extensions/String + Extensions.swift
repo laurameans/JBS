@@ -9,7 +9,7 @@ import Foundation
 
 fileprivate let badChars = CharacterSet.alphanumerics.inverted
 
-extension String {
+public extension String {
 	var uppercasingFirst: String {
 		return prefix(1).uppercased() + dropFirst()
 	}
@@ -32,8 +32,16 @@ extension String {
 	}
 	
 	#if canImport(UIKit) || canImport(AppKit)
-	public var isValidEmail: Bool {
-		NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: self)
-	}
-	#endif
+    var isValidEmail: Bool {
+        NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: self)
+    }
+#endif
+    
+    func formatPhoneNumber() -> String {
+        guard self.count == 10 else { return self }
+        let areaCode = self.prefix(3)
+        let middle = self.dropFirst(3).prefix(3)
+        let last = self.dropFirst(6)
+        return "(\(areaCode)) \(middle)-\(last)"
+    }
 }
