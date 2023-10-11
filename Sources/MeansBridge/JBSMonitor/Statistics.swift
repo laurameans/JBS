@@ -87,11 +87,11 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
 		}
 	}
 	
-	public enum Position: String, Codable, Sendable, Hashable {
-		case pinned
-		case top
-		case middle
-		case bottom
+	public enum Position: Int, Codable, Sendable, Hashable {
+		case pinned = 4
+		case top = 3
+		case middle = 2
+		case bottom = 1
 	}
 }
 

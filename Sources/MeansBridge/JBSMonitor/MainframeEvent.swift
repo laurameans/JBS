@@ -17,7 +17,6 @@ public enum MainframeEvent: Codable, Sendable {
     case concurrentUsers(_ value: [MeansBridgeAppName: [MainframeUserRepresentable.Micro]])
     
     public func encoded() throws -> Data {
-//        print(self)
         return try JSONEncoder().encode(self)
     }
 }
