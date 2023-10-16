@@ -29,6 +29,8 @@ public struct MeansBridgeApp: Codable, Hashable {
 	public var prometheusInstance: String?
 	public var prometheusURL: String?
 	public var id: UUID?
+    public var githubOrgName: String?
+    public var githubServerRepoName: String?
 }
 
 public struct MeansBridgeAppName: Codable, RawRepresentable, Hashable, Sendable {

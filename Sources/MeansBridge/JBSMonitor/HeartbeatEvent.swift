@@ -14,8 +14,22 @@ public enum HeartbeatEvent: Codable, Equatable {
     case error(message: String)
     case connected
     case memoryWarning
+    case event(_ event: JSONAny)
     
     public func encoded() throws -> Data {
         return try JSONEncoder().encode(self)
     }
+    
+    var e: String {
+        switch self {
+            case .event(let event):
+                let e = event.value as? HeartbeatEvent
+            default: break
+        }
+        return ""
+    }
+}
+
+public protocol EventRepresentable: Codable, Equatable, Sendable {
+    
 }
