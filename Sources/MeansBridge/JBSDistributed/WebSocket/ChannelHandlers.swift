@@ -171,7 +171,7 @@
 //        }
 //
 //        var headers = HTTPHeaders()
-//        headers.add(name: "Content-Type", value: "text/html")
+//        headers.add(name: "Content-Type", value: "text/html; charset=utf-8")
 //        headers.add(name: "Content-Length", value: String(responseBody.readableBytes))
 //        headers.add(name: "Connection", value: "close")
 //        let responseHead = HTTPResponseHead(version: .init(major: 1, minor: 1),
