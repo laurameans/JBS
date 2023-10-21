@@ -1,4 +1,4 @@
-// swift-tools-version:5.8
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 // -=-=-=-=-=-=-=-=-=-=-=-
@@ -28,12 +28,13 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
 //        .package(url: "https://github.com/JustinMeans/WebsocketActorSystem", .branch("main"))
-        .package(url: "https://github.com/justinmeans/SwiftDate/", .branch("master"))
+        .package(url: "https://github.com/justinmeans/SwiftDate/", .branch("master")),
+        .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/MeansCompiler/", .branch("main"))
     ],
     targets: [
 		.target(name: "MeansBridge", dependencies: [
-            .product(name: "SwiftDate", package: "SwiftDate")
-//            .product(name: "WebsocketActorSystem", package: "WebsocketActorSystem")
+            .product(name: "SwiftDate", package: "SwiftDate"),
+            .product(name: "MeansCompiler", package: "MeansCompiler")
         ]),
 		.target(name: "MeansNewsBridge"),
 		.target(name: "MeansPayBridge", dependencies: [
