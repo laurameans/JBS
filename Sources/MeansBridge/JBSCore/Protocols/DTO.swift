@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@_exported import MeansCompiler
 
 public protocol DTO: Codable, Equatable, Hashable, Sendable {
     

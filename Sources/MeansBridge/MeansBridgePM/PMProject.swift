@@ -25,6 +25,7 @@ public struct PMProject {
     }
     @PublicInit
     public struct Global: DTO {
-        
+        public var issues: [PMIssue.Micro]
+        public var micro: PMProject.Micro
     }
 }
