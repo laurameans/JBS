@@ -15,6 +15,8 @@ public struct WebContent: DTO, Duplicatable {
     public var link: String?
     public var enabled: Bool = true
     public var rawHTML: String?
+    public var doubleWidth: Bool?
+    public var style: String?
     public var computedHTML: String {
         ""
     }
