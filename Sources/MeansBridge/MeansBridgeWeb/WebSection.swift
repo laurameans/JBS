@@ -12,4 +12,11 @@ public struct WebSection: DTO {
     public let id: UUID
     public var rows: [WebRow]
     public var enabled: Bool = true
+    public var type: SectionType? = .standard
+    
+    public enum SectionType: DTO {
+        case standard
+        case fullWidth
+        case fullWidthAndHeight
+    }
 }

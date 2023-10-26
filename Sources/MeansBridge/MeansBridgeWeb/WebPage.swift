@@ -11,6 +11,7 @@ public struct WebPage {
     
     @PublicInit
     public struct Micro: DTO {
+        public var id: UUID?
         public var title: String
         public var slug: String
         public var createdDate: Date?
@@ -18,6 +19,7 @@ public struct WebPage {
         public var visibility: Visibility
         public var taxonomy: WebTaxonomy?
         public var isTaxonomyBase: Bool?
+        public var featuredImageURL: String?
     }
     
     @PublicInit
@@ -28,10 +30,23 @@ public struct WebPage {
         public var updatedBy: MainframeUserRepresentable.Micro?
     }
     
-    public enum Visibility: String, DTO {
+    public enum Visibility: String, DTO, CaseIterable {
         case published
         case draft
         case userAuthenticated
         case `internal`
+        
+        public var title: String {
+            return switch self {
+                case .published:
+                    "Published"
+                case .draft:
+                    "Draft"
+                case .userAuthenticated:
+                    "User Authenticated"
+                case .internal:
+                    "Internal"
+            }
+        }
     }
 }
