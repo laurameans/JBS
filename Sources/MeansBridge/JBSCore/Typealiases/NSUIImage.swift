@@ -16,8 +16,10 @@ import UIKit
 
 #if canImport(UIKit)
 public typealias NSUIImage = UIImage
+public typealias NSUISize = CGSize
 #else
 public typealias NSUIImage = NSImage
+public typealias NSUISize = NSSize
 #endif
 #endif
 
