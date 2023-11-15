@@ -13,7 +13,7 @@ public extension Date {
         DateInRegion(self, region: Region(zone: zone)).toFormat("MMM dd yyyy hh:mm:ss a")
     }
     
-    func yyyyddMMhhmmssa(_ zone: Zones) -> String {
-        DateInRegion(self, region: Region(zone: zone)).toFormat("yyyy-dd-MM hh:mm:ss a")
+    func yyyyMMddhhmmssa(_ zone: Zones) -> String {
+        DateInRegion(self, region: Region(zone: zone)).toFormat("yyyy-MM-dd hh:mm:ss a")
     }
 }
