@@ -33,5 +33,6 @@ public struct PMIssue {
         public var subIssues: [PMIssue.Micro]?
         public var assignee: MainframeUserRepresentable.Micro?
         public var creator: MainframeUserRepresentable.Micro?
+        public var activity: [PMActivity]?
     }
 }

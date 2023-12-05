@@ -20,6 +20,7 @@ public protocol DiffusionGenerated: Identifiable, Hashable {
 	var deviceModel: String? { get set }
 	var generationTimeSeconds: Float? { get set }
 	var hidePrompt: Bool? { get set }
+    var upscaled: Bool? { get set }
 }
 
 public struct UserGeneratedImage<User: MicroUserRepresentable>: Codable, Identifiable, Hashable {
@@ -36,6 +37,8 @@ public struct UserGeneratedImage<User: MicroUserRepresentable>: Codable, Identif
 }
 
 public struct GeneratedImage: DiffusionGenerated {
+    public var upscaled: Bool?
+    
 	public var remoteID: UUID?
 	public var id: UUID = UUID()
 	public var prompt: String
@@ -69,7 +72,7 @@ public struct GeneratedImage: DiffusionGenerated {
 		Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("heic")
 	}
 	
-    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -90,9 +93,10 @@ public struct GeneratedImage: DiffusionGenerated {
 		self.generationTimeSeconds = generationTimeSeconds
 		self.hidePrompt = hidePrompt
         self.presetID = presetID
+        self.upscaled = upscaled
 	}
 #else
-    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -111,6 +115,7 @@ public struct GeneratedImage: DiffusionGenerated {
 		self.generationTimeSeconds = generationTimeSeconds
 		self.hidePrompt = hidePrompt
         self.presetID = presetID
+        self.upscaled = upscaled
 	}
 #endif
 	public enum CodingKeys: CodingKey {
@@ -132,6 +137,7 @@ public struct GeneratedImage: DiffusionGenerated {
 		case generationTimeSeconds
 		case hidePrompt
         case presetID
+        case upscaled
 	}
 }
 
@@ -173,7 +179,8 @@ extension GeneratedImage: Codable {
         let controlImageURLs = try container.decodeIfPresent([String].self, forKey: .controlImageURLs)
         let imageDestruction = try container.decodeIfPresent(Float.self, forKey: .imageDestruction)
         let presetID = try container.decodeIfPresent(Int.self, forKey: .presetID)
-        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID)
+        let upscaled = try container.decodeIfPresent(Bool.self, forKey: .upscaled)
+        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID, upscaled: upscaled)
         let base = Self.libraryDirectory.appendingPathComponent(id.uuidString)
         var imageLocation: URL!
         if FileManager.default.fileExists(atPath: base.appendingPathExtension("heic").path) {
@@ -207,6 +214,7 @@ extension GeneratedImage: Codable {
         try container.encode(self.controlImageURLs, forKey: .controlImageURLs)
         try container.encode(self.imageDestruction, forKey: .imageDestruction)
         try container.encode(self.presetID, forKey: .presetID)
+        try container.encode(self.upscaled, forKey: .upscaled)
 	}
 }
 
@@ -216,6 +224,6 @@ extension GeneratedImage: Codable { }
 
 public extension GeneratedImage {
     static var empty: GeneratedImage {
-        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil)
+        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false)
     }
 }

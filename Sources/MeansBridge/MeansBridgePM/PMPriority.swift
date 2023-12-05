@@ -7,12 +7,12 @@
 
 import Foundation
 
-public enum PMPriority: String, DTO {
-    case low
-    case medium
-    case high
-    case urgent
-    case none
+public enum PMPriority: Int, DTO {
+    case low = 1
+    case medium = 2
+    case high = 3
+    case urgent = 4
+    case none = 0
     
     public var title: String {
         switch self {
@@ -29,4 +29,5 @@ public enum PMPriority: String, DTO {
                 return "None"
         }
     }
+    
 }
