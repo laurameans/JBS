@@ -39,9 +39,15 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Send
 		}
 	}
 	
-	public func encode(to encoder: Encoder) throws {
-		try wrappedValue.encode(to: encoder)
-	}
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        if let floatValue = wrappedValue as? Float {
+            let formattedString = String(format: "%.2f", floatValue)
+            try container.encode(formattedString)
+        } else {
+            try container.encode(wrappedValue)
+        }
+    }
 	
 }
 
@@ -61,7 +67,8 @@ extension Decimal: StringInitable {
 
 extension Float: StringInitable {
     public init?(string: String) {
-        self.init(string)
+        guard let number = NumberFormatter().number(from: string) else { return nil }
+        self = number.floatValue
     }
 }
 
