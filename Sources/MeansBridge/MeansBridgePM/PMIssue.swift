@@ -24,6 +24,8 @@ public struct PMIssue {
         public var url: String?
         public var isPublic: Bool?
         public var externalCreator: Bool?
+        public var llmComments: [String]?
+        public var llmPriority: Int?
     }
     
     @PublicInit
