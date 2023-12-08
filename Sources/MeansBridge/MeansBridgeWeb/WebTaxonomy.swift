@@ -12,6 +12,7 @@ public enum WebTaxonomy: String, DTO, CaseIterable {
     case devlog
     case documentation
     case `internal`
+    case onboarding
     
     public var title: String {
         switch self {
@@ -19,6 +20,7 @@ public enum WebTaxonomy: String, DTO, CaseIterable {
             case .devlog: "Developer Log"
             case .documentation: "Documentation"
             case .internal: "Internal"
+            case .onboarding: "Onboarding"
         }
     }
 }

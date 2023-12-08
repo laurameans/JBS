@@ -11,10 +11,22 @@ import Foundation
 public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Sendable>: Codable, Hashable, Sendable {
 	
 	public var wrappedValue: T?
+    public var precision: Precision = .original
+    
+    public enum Precision: DTO {
+        case original
+        case twoPoint
+        case integer
+    }
 	
-	public init(wrappedValue: T?) {
+    public init(precision: Precision = .original, wrappedValue: T?) {
 		self.wrappedValue = wrappedValue
+        self.precision = precision
 	}
+    
+    public init(precision: Precision = .original) {
+        self.precision = precision
+    }
 	
 	public init(from decoder: Decoder) throws {
 		do {
@@ -42,8 +54,16 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Send
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         if let floatValue = wrappedValue as? Float {
-            let formattedString = String(format: "%.2f", floatValue)
-            try container.encode(formattedString)
+            switch precision {
+                case .original:
+                    try container.encode(floatValue)
+                case .twoPoint:
+                    let formattedString = String(format: "%.2f", floatValue)
+                    try container.encode(formattedString)
+                case .integer:
+                    let formattedString = String(format: "%@", floatValue)
+                    try container.encode(formattedString)
+            }
         } else {
             try container.encode(wrappedValue)
         }
