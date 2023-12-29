@@ -49,7 +49,7 @@ public struct MonitorSystemMetrics: Codable, Hashable, Equatable {
 }
 
 public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
-	public init(key: MonitorStatisticsV2.Key, value: Double, title: String? = nil, roundingLevel: Int, position: MonitorStatisticsV2.Position, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
+    public init(key: MonitorStatisticsV2.Key, value: Double, title: String? = nil, roundingLevel: Int, position: MonitorStatisticsV2.Position = .bottom, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
 		self.key = key
 		self.value = value
 		self.title = title
