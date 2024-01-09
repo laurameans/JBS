@@ -13,10 +13,18 @@ public protocol Displayable {
 
 public extension String {
     var camelWords: String {
-        return unicodeScalars.dropFirst().reduce(String(prefix(1))) {
-            return CharacterSet.uppercaseLetters.contains($1)
-            ? $0 + " " + String($1).uppercased()
-            : $0 + String($1).uppercased()
-        }
+        guard !self.isEmpty else { return self }
+        
+        return unicodeScalars.reduce(into: "") { result, scalar in
+            if CharacterSet.uppercaseLetters.contains(scalar) {
+                result += " " + String(scalar).capitalizingFirstLetter()
+            } else {
+                result += String(scalar)
+            }
+        }.capitalizingFirstLetter()
+    }
+    
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + dropFirst()
     }
 }

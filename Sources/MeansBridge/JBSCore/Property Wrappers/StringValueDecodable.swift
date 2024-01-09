@@ -53,19 +53,33 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Send
 	
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        if let floatValue = wrappedValue as? Float {
-            switch precision {
-                case .original:
-                    try container.encode(floatValue)
-                case .twoPoint:
-                    let formattedString = String(format: "%.2f", floatValue)
-                    try container.encode(formattedString)
-                case .integer:
-                    let formattedString = String(format: "%@", floatValue)
-                    try container.encode(formattedString)
-            }
-        } else {
-            try container.encode(wrappedValue)
+        switch wrappedValue {
+            case let floatValue as Float:
+                switch precision {
+                    case .original:
+                        try container.encode(floatValue)
+                    case .twoPoint:
+                        let formattedString = String(format: "%.2f", floatValue)
+                        try container.encode(formattedString)
+                    case .integer:
+                        let formattedString = String(format: "%.0f", floatValue)
+                        try container.encode(formattedString)
+                }
+                
+            case let decimalValue as Decimal:
+                switch precision {
+                    case .original:
+                        try container.encode(decimalValue)
+                    case .twoPoint:
+                        let formattedString = decimalValue.formattedString(withFractionDigits: 2)
+                        try container.encode(formattedString)
+                    case .integer:
+                        let formattedString = decimalValue.formattedString(withFractionDigits: 0)
+                        try container.encode(formattedString)
+                }
+                
+            default:
+                try container.encode(wrappedValue)
         }
     }
 	
@@ -80,9 +94,21 @@ public protocol StringInitable {
 }
 
 extension Decimal: StringInitable {
-	public init?(string: String) {
-		self.init(string: string, locale: nil)
-	}
+    public init?(string: String) {
+        self.init(string: string, locale: Locale(identifier: "en_US_POSIX"))
+    }
+}
+
+extension Decimal {
+    func formattedString(withFractionDigits fractionDigits: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = "" // No comma separators
+        formatter.decimalSeparator = "." // Decimal separator
+        formatter.minimumFractionDigits = fractionDigits
+        formatter.maximumFractionDigits = fractionDigits
+        return formatter.string(from: NSDecimalNumber(decimal: self)) ?? ""
+    }
 }
 
 extension Float: StringInitable {
