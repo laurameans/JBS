@@ -27,7 +27,6 @@ public struct Editable<Value>: Sendable & Codable & Hashable & Equatable where V
     }
 }
 
-import SwiftUI
 public protocol EditableProperty {
     associatedtype Value: Sendable & Codable & Hashable & Equatable
     var value: Value { get set }
