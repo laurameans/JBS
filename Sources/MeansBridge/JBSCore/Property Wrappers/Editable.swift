@@ -9,6 +9,7 @@ import Foundation
 
 @propertyWrapper
 public struct Editable<Value>: Sendable & Codable & Hashable & Equatable where Value: Sendable & Codable & Hashable & Equatable {
+    public let defaultValue: Value
     public var value: Value
     public var min: Value?
     public var max: Value?
@@ -20,6 +21,7 @@ public struct Editable<Value>: Sendable & Codable & Hashable & Equatable where V
     }
     
     public init(wrappedValue: Value, min: Value? = nil, max: Value? = nil, roundingLevel: Int? = nil) {
+        self.defaultValue = wrappedValue
         self.value = wrappedValue
         self.min = min
         self.max = max

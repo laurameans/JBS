@@ -99,15 +99,30 @@ extension Decimal: StringInitable {
     }
 }
 
-extension Decimal {
+public extension Decimal {
     func formattedString(withFractionDigits fractionDigits: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = "" // No comma separators
-        formatter.decimalSeparator = "." // Decimal separator
-        formatter.minimumFractionDigits = fractionDigits
-        formatter.maximumFractionDigits = fractionDigits
-        return formatter.string(from: NSDecimalNumber(decimal: self)) ?? ""
+        // Convert Decimal to String with default formatting.
+        var stringRepresentation = "\(self)"
+        
+        // Find the location of the decimal point.
+        if let decimalPointIndex = stringRepresentation.firstIndex(of: ".") {
+            let fractionalPartStartIndex = stringRepresentation.index(after: decimalPointIndex)
+            let fractionalPartLength = stringRepresentation.distance(from: fractionalPartStartIndex, to: stringRepresentation.endIndex)
+            
+            if fractionDigits > fractionalPartLength {
+                // Append zeros if the number of fraction digits is greater than the length of fractional part.
+                stringRepresentation += String(repeating: "0", count: fractionDigits - fractionalPartLength)
+            } else if fractionDigits < fractionalPartLength {
+                // Truncate if the number of fraction digits is less than the length of fractional part.
+                let endIndexOfFraction = stringRepresentation.index(fractionalPartStartIndex, offsetBy: fractionDigits)
+                stringRepresentation = String(stringRepresentation[..<endIndexOfFraction])
+            }
+        } else if fractionDigits > 0 {
+            // Append decimal point and zeros if there's no fractional part.
+            stringRepresentation += "." + String(repeating: "0", count: fractionDigits)
+        }
+        
+        return stringRepresentation
     }
 }
 

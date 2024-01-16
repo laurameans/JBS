@@ -35,6 +35,8 @@ public struct WebPage {
         case draft
         case userAuthenticated
         case `internal`
+        case confidential
+        case restricted
         
         public var title: String {
             return switch self {
@@ -46,6 +48,21 @@ public struct WebPage {
                     "User Authenticated"
                 case .internal:
                     "Internal"
+                case .confidential:
+                    "Confidential"
+                case .restricted:
+                    "Restricted"
+            }
+        }
+        
+        public func isAuthorized(_ accessLevel: AccessLevel) -> Bool {
+            switch accessLevel {
+                case .internal:
+                    return self != .confidential && self != .restricted
+                case .confidential:
+                    return self != .restricted
+                case .restricted:
+                    return true
             }
         }
     }
