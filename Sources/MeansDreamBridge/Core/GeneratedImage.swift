@@ -23,7 +23,15 @@ public protocol DiffusionGenerated: Identifiable, Hashable {
     var upscaled: Bool? { get set }
 }
 
-public struct UserGeneratedImage<User: MicroUserRepresentable>: Codable, Identifiable, Hashable {
+public struct UserGeneratedImage<User: MicroUserRepresentable>: Reportable, DTO, Identifiable {
+    public var schema: MeansBridge.ReportSchema {
+        .generatedImage
+    }
+    
+    public var reportMeta: MeansBridge.ReportMetadata {
+        ReportMetadata(title: nil, imageURLString: generatedImage.remoteImageURL, creatorName: user.username, date: generatedImage.createdDate)
+    }
+    
 	public var id: UUID? { generatedImage.remoteID }
 	
 	public var user: User
@@ -225,5 +233,11 @@ extension GeneratedImage: Codable { }
 public extension GeneratedImage {
     static var empty: GeneratedImage {
         GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false)
+    }
+}
+
+public extension MeansBridge.ReportSchema {
+    static var generatedImage: MeansBridge.ReportSchema {
+        MeansBridge.ReportSchema(rawValue: "generated_image")
     }
 }
