@@ -16,6 +16,7 @@ public enum MeansBridgeError: Error {
     case usernameUnavailable
     case siwaEmailMissing
     case siwaInvalidState
+    case noUsername
     
     public var message: String {
         switch self {
@@ -35,6 +36,8 @@ public enum MeansBridgeError: Error {
                 return "The email is missing from Apple Identity Token. Revoke access for this application on https://appleid.apple.com and try again."
             case .siwaInvalidState:
                 return "Invalid state for Sign in With Apple."
+            case .noUsername:
+                return "Please set up a username."
         }
     }
 }
