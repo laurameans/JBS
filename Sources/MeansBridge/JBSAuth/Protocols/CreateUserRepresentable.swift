@@ -14,8 +14,8 @@ public protocol CreateUserRepresentable: Codable, Hashable {
 	var password: String { get set }
 	var hasAcceptedTermsAndConditions: Bool { get set }
 	var hasAcceptedPrivacyPolicy: Bool { get set }
-	var useUsername: Bool { get }
-	var useFirstLast: Bool { get }
+	static var useUsername: Bool { get }
+	static var useFirstLast: Bool { get }
 	var firstName: String { get set }
 	var lastName: String { get set }
 	
