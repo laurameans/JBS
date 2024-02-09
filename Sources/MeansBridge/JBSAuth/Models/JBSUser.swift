@@ -10,7 +10,7 @@ import Foundation
 public struct MeansBridgeUser {
 	
     public struct Micro: MicroUserRepresentable {
-		public init(id: UUID? = nil, name: String? = nil, username: String, profilePicURL: String? = nil) {
+		public init(id: UUID? = nil, name: String? = nil, username: String?, profilePicURL: String? = nil) {
 			self.id = id
 			self.name = name
 			self.username = username
@@ -19,7 +19,7 @@ public struct MeansBridgeUser {
 		
 		public var id: UUID?
 		public var name: String?
-		public var username: String
+		public var username: String?
 		public var profilePicURL: String?
 		
 	}

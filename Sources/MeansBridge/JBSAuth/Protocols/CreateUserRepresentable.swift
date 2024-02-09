@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol CreateUserRepresentable: Codable, Hashable {
-	var username: String { get set }
+	var username: String? { get set }
 	var email: String { get set }
 	var name: String { get set }
 	var password: String { get set }
@@ -21,5 +21,5 @@ public protocol CreateUserRepresentable: Codable, Hashable {
 	
 	init()
 	
-	init(username: String, email: String, name: String, firstName: String, lastName: String, password: String, hasAcceptedTermsAndConditions: Bool, hasAcceptedPrivacyPolicy: Bool)
+	init(username: String?, email: String, name: String, firstName: String, lastName: String, password: String, hasAcceptedTermsAndConditions: Bool, hasAcceptedPrivacyPolicy: Bool)
 }
