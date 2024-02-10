@@ -8,7 +8,7 @@
 import Foundation
 
 @PublicInit
-public struct WebColumn: DTO {
-    public let id: UUID
+public struct WebColumn: DTO, Duplicatable {
+    public var id: UUID
     public var contents: [WebContent]
 }

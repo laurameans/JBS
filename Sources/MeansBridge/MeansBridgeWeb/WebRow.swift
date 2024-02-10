@@ -8,8 +8,8 @@
 import Foundation
 
 @PublicInit
-public struct WebRow: DTO {
-    public let id: UUID
+public struct WebRow: DTO, Duplicatable {
+    public var id: UUID
     public var columns: [WebColumn]
     public var enabled: Bool = true
 }

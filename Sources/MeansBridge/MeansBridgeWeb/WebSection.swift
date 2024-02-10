@@ -8,8 +8,8 @@
 import Foundation
 
 @PublicInit
-public struct WebSection: DTO {
-    public let id: UUID
+public struct WebSection: DTO, Duplicatable {
+    public var id: UUID
     public var rows: [WebRow]
     public var enabled: Bool = true
     public var type: SectionType? = .standard
