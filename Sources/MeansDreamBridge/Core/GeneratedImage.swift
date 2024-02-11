@@ -44,7 +44,7 @@ public struct UserGeneratedImage<User: MicroUserRepresentable>: Reportable, DTO,
 	}
 }
 
-public struct GeneratedImage: DiffusionGenerated {
+public struct GeneratedImage: DiffusionGenerated, DTO {
     public var upscaled: Bool?
     
 	public var remoteID: UUID?
@@ -65,6 +65,11 @@ public struct GeneratedImage: DiffusionGenerated {
 	public var deviceModel: String?
 	public var generationTimeSeconds: Float?
 	public var hidePrompt: Bool?
+    public var is360: Bool?
+    public var imageStrength: Float?
+    public var edgeControlStrength: Float?
+    public var colorControlStrength: Float?
+    public var model: AIModel?
 #if !os(Linux)
 	public var image: NSUIImage?
     public var originalImage: NSUIImage?
@@ -80,7 +85,7 @@ public struct GeneratedImage: DiffusionGenerated {
 		Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("heic")
 	}
 	
-    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?, is360: Bool?, imageStrength: Float?, edgeControlStrength: Float?, colorControlStrength: Float?, model: AIModel?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -102,9 +107,14 @@ public struct GeneratedImage: DiffusionGenerated {
 		self.hidePrompt = hidePrompt
         self.presetID = presetID
         self.upscaled = upscaled
+        self.is360 = is360
+        self.imageStrength = imageStrength
+        self.edgeControlStrength = edgeControlStrength
+        self.colorControlStrength = colorControlStrength
+        self.model = model
 	}
 #else
-    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?, is360: Bool?, imageStrength: Float?, edgeControlStrength: Float?, colorControlStrength: Float?, model: AIModel?) {
 		self.remoteID = remoteID
 		self.id = id
 		self.prompt = prompt
@@ -124,6 +134,11 @@ public struct GeneratedImage: DiffusionGenerated {
 		self.hidePrompt = hidePrompt
         self.presetID = presetID
         self.upscaled = upscaled
+        self.is360 = is360
+        self.imageStrength = imageStrength
+        self.edgeControlStrength = edgeControlStrength
+        self.colorControlStrength = colorControlStrength
+        self.model = model
 	}
 #endif
 	public enum CodingKeys: CodingKey {
@@ -146,6 +161,11 @@ public struct GeneratedImage: DiffusionGenerated {
 		case hidePrompt
         case presetID
         case upscaled
+        case is360
+        case imageStrength
+        case edgeControlStrength
+        case colorControlStrength
+        case model
 	}
 }
 
@@ -188,7 +208,12 @@ extension GeneratedImage: Codable {
         let imageDestruction = try container.decodeIfPresent(Float.self, forKey: .imageDestruction)
         let presetID = try container.decodeIfPresent(Int.self, forKey: .presetID)
         let upscaled = try container.decodeIfPresent(Bool.self, forKey: .upscaled)
-        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID, upscaled: upscaled)
+        let is360 = try container.decodeIfPresent(Bool.self, forKey: .is360)
+        let imageStrength = try container.decodeIfPresent(Float.self, forKey: .imageStrength)
+        let edgeControlStrength = try container.decodeIfPresent(Float.self, forKey: .edgeControlStrength)
+        let colorControlStrength = try container.decodeIfPresent(Float.self, forKey: .colorControlStrength)
+        let model = try container.decodeIfPresent(AIModel.self, forKey: .model)
+        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID, upscaled: upscaled, is360: is360, imageStrength: imageStrength, edgeControlStrength: edgeControlStrength, colorControlStrength: colorControlStrength, model: model)
         let base = Self.libraryDirectory.appendingPathComponent(id.uuidString)
         var imageLocation: URL!
         if FileManager.default.fileExists(atPath: base.appendingPathExtension("heic").path) {
@@ -223,6 +248,7 @@ extension GeneratedImage: Codable {
         try container.encode(self.imageDestruction, forKey: .imageDestruction)
         try container.encode(self.presetID, forKey: .presetID)
         try container.encode(self.upscaled, forKey: .upscaled)
+        try container.encode(self.model, forKey: .model)
 	}
 }
 
@@ -232,7 +258,7 @@ extension GeneratedImage: Codable { }
 
 public extension GeneratedImage {
     static var empty: GeneratedImage {
-        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false)
+        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false, is360: nil, imageStrength: nil, edgeControlStrength: nil, colorControlStrength: nil, model: nil)
     }
 }
 
