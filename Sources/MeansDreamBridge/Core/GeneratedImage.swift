@@ -244,11 +244,12 @@ extension GeneratedImage: Codable {
 		try container.encode(self.generationTimeSeconds, forKey: .generationTimeSeconds)
 		try container.encode(self.hidePrompt, forKey: .hidePrompt)
         try container.encode(self.remoteOriginalImageURL, forKey: .remoteOriginalImageURL)
-        try container.encode(self.controlImageURLs, forKey: .controlImageURLs)
-        try container.encode(self.imageDestruction, forKey: .imageDestruction)
-        try container.encode(self.presetID, forKey: .presetID)
-        try container.encode(self.upscaled, forKey: .upscaled)
-        try container.encode(self.model, forKey: .model)
+        try container.encodeIfPresent(self.controlImageURLs, forKey: .controlImageURLs)
+        try container.encodeIfPresent(self.is360, forKey: .is360)
+        try container.encodeIfPresent(self.imageDestruction, forKey: .imageDestruction)
+        try container.encodeIfPresent(self.presetID, forKey: .presetID)
+        try container.encodeIfPresent(self.upscaled, forKey: .upscaled)
+        try container.encodeIfPresent(self.model, forKey: .model)
 	}
 }
 
