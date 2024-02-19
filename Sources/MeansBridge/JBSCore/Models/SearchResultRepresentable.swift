@@ -11,6 +11,6 @@ public protocol SearchResultRepresentable: Codable, Hashable, Equatable, Identif
 	var title: String { get }
 	var subtitle: String? { get }
 	var imageURL: String? { get }
-    var id: UUID? { get }
+//    var id: UUID? { get }
 	
 }
