@@ -9,7 +9,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "MeansBridge",
+    name: "JBS",
 	platforms: [
 		.macOS(.v10_15),
 		.iOS(.v13),
@@ -20,30 +20,33 @@ let package = Package(
 	],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-		.library(name: "MeansBridge", targets: ["MeansBridge"]),
-		.library(name: "MeansNewsBridge", targets: ["MeansNewsBridge"]),
-		.library(name: "MeansDreamBridge", targets: ["MeansDreamBridge"]),
-		.library(name: "MeansPayBridge", targets: ["MeansPayBridge"])
+		.library(name: "JBS", targets: ["JBS"]),
+		.library(name: "JBSNews", targets: ["JBSNews"]),
+		.library(name: "JBSDream", targets: ["JBSDream"]),
+		.library(name: "JBSPay", targets: ["JBSPay"])
     ],
 	
     dependencies: [
         // Dependencies declare other packages that this package depends on.
 //        .package(url: "https://github.com/JustinMeans/WebsocketActorSystem", .branch("main"))
         .package(url: "https://github.com/MeansAI/SwiftDate/", from: "1.0.0"),
-        .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/MeansCompiler/", .branch("main"))
+        .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/JCX/", branch: "main"),
+        .package(url: "https://github.com/MeansAI/SwiftFormat", branch: "main")
     ],
     targets: [
-		.target(name: "MeansBridge", dependencies: [
+		.target(name: "JBS", dependencies: [
             .product(name: "SwiftDate", package: "SwiftDate"),
-            .product(name: "MeansCompiler", package: "MeansCompiler")
+            .product(name: "JCX", package: "JCX")
         ]),
-		.target(name: "MeansNewsBridge"),
-		.target(name: "MeansPayBridge", dependencies: [
-			"MeansBridge"
+        .target(name: "JBSNews", dependencies: [
+            "JBS"
+        ]),
+		.target(name: "JBSPay", dependencies: [
+			"JBS"
 		]),
-		.target(name: "MeansDreamBridge", dependencies: [
-			"MeansBridge",
-			"MeansPayBridge"
+		.target(name: "JBSDream", dependencies: [
+			"JBS",
+			"JBSPay"
 		]),
     ]
 )
