@@ -8,7 +8,6 @@
 import Foundation
 
 public enum MediaType: StringLiteralType, RawRepresentable, Codable {
-    public static let schema = "jws_media_type_enum"
     case image
     case pdf
     case audio
@@ -18,6 +17,8 @@ public enum MediaType: StringLiteralType, RawRepresentable, Codable {
     case zip
     case m4s
     case heic
+
+    public static let schema = "jws_media_type_enum"
 
     public var contentType: String {
         switch self {

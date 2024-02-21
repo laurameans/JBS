@@ -8,11 +8,6 @@
 import Foundation
 
 public struct ActorIdentity: Hashable, Sendable, Codable, CustomStringConvertible, CustomDebugStringConvertible {
-    public let `protocol`: String?
-    public let host: String?
-    public let port: Int?
-    public let id: String
-
     public init(id: String) {
         self.protocol = nil
         host = nil
@@ -30,6 +25,11 @@ public struct ActorIdentity: Hashable, Sendable, Codable, CustomStringConvertibl
     public static var random: Self {
         .init(id: "\(UUID().uuidString)")
     }
+
+    public let `protocol`: String?
+    public let host: String?
+    public let port: Int?
+    public let id: String
 
     public var description: String {
         if let proto = self.protocol,

@@ -7,7 +7,7 @@
 
 import Foundation
 #if canImport(MapKit)
-    import MapKit
+import MapKit
 #endif
 
 @PublicInit
@@ -27,8 +27,8 @@ public struct Coordinates: Codable, Equatable, Hashable {
     }
 
     #if canImport(MapKit)
-        public var clLocationCoordinate2D: CLLocationCoordinate2D {
-            CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        }
+    public var clLocationCoordinate2D: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
     #endif
 }

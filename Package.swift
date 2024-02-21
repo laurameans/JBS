@@ -31,7 +31,6 @@ let package = Package(
 //        .package(url: "https://github.com/JustinMeans/WebsocketActorSystem", .branch("main"))
         .package(url: "https://github.com/MeansAI/SwiftDate/", from: "1.0.0"),
         .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/JCX/", branch: "main"),
-        .package(url: "https://github.com/MeansAI/SwiftFormat", branch: "main")
     ],
     targets: [
 		.target(name: "JBS", dependencies: [

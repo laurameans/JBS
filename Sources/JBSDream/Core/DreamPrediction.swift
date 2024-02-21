@@ -29,9 +29,6 @@ public extension DreamPrediction {
 }
 
 public protocol DreamPredictionCreate: Codable, Hashable, Sendable {}
-
 public protocol DreamInput: Codable, Hashable, Sendable {}
-
 public protocol DreamOutput: Codable, Hashable, Sendable {}
-
 public protocol DreamStatus: Codable, Hashable, Sendable {}

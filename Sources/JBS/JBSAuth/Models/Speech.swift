@@ -17,12 +17,10 @@ public enum Speech {
     public typealias Items = [Item]
 
     public enum Item: Codable, Hashable {
-        enum CodingKeys: CodingKey {
-            case news
-            case conversational
-            case pause
-            case standard
-        }
+        case news(_ text: String)
+        case conversational(_ text: String)
+        case pause(durationMS: Int)
+        case standard(_ text: String)
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,20 +41,6 @@ public enum Speech {
                 self = .standard(value)
             default:
                 throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "Unable to decode speech enum."))
-            }
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            switch self {
-            case let .conversational(text):
-                try container.encode(text, forKey: .conversational)
-            case let .news(text):
-                try container.encode(text, forKey: .news)
-            case let .pause(durationMS: durationMS):
-                try container.encode(durationMS, forKey: .pause)
-            case let .standard(text):
-                try container.encode(text, forKey: .standard)
             }
         }
 
@@ -93,10 +77,26 @@ public enum Speech {
             return String(text.toBase64().prefix(254))
         }
 
-        case news(_ text: String)
-        case conversational(_ text: String)
-        case pause(durationMS: Int)
-        case standard(_ text: String)
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            switch self {
+            case let .conversational(text):
+                try container.encode(text, forKey: .conversational)
+            case let .news(text):
+                try container.encode(text, forKey: .news)
+            case let .pause(durationMS: durationMS):
+                try container.encode(durationMS, forKey: .pause)
+            case let .standard(text):
+                try container.encode(text, forKey: .standard)
+            }
+        }
+
+        enum CodingKeys: CodingKey {
+            case news
+            case conversational
+            case pause
+            case standard
+        }
     }
 }
 

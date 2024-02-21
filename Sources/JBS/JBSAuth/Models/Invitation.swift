@@ -21,10 +21,11 @@ public extension MessageType {
 }
 
 public struct InvitationType: RawRepresentable, Equatable, Sendable, Codable, Hashable {
-    public var rawValue: String
-    public typealias RawValue = String
-
     public init(rawValue: String) {
         self.rawValue = rawValue
     }
+
+    public typealias RawValue = String
+
+    public var rawValue: String
 }

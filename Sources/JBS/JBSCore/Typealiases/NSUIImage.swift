@@ -6,19 +6,19 @@
 //
 
 #if !os(Linux)
-    import Foundation
-    #if canImport(AppKit)
-        import AppKit
-    #endif
-    #if canImport(UIKit)
-        import UIKit
-    #endif
+import Foundation
+#if canImport(AppKit)
+import AppKit
+#endif
+#if canImport(UIKit)
+import UIKit
+#endif
 
-    #if canImport(UIKit)
-        public typealias NSUIImage = UIImage
-        public typealias NSUISize = CGSize
-    #else
-        public typealias NSUIImage = NSImage
-        public typealias NSUISize = NSSize
-    #endif
+#if canImport(UIKit)
+public typealias NSUIImage = UIImage
+public typealias NSUISize = CGSize
+#else
+public typealias NSUIImage = NSImage
+public typealias NSUISize = NSSize
+#endif
 #endif

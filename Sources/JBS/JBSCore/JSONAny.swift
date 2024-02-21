@@ -9,15 +9,49 @@ import Foundation
 
 // https://stackoverflow.com/questions/46279992/any-when-decoding-json-with-codable
 public class JSONAny: Codable, Equatable, Hashable, @unchecked Sendable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(self as? String)
+    public required init(from decoder: Decoder) throws {
+        if var arrayContainer = try? decoder.unkeyedContainer() {
+            value = try JSONAny.decodeArray(from: &arrayContainer)
+        } else if var container = try? decoder.container(keyedBy: MyCodingKey.self) {
+            value = try JSONAny.decodeDictionary(from: &container)
+        } else {
+            let container = try decoder.singleValueContainer()
+            value = try JSONAny.decode(from: container)
+        }
     }
+
+    public let value: Any
 
     public static func == (lhs: JSONAny, rhs: JSONAny) -> Bool {
         return dumpToString(lhs.value) == dumpToString(rhs.value)
     }
 
-    public let value: Any
+    public static func from(value: Any) -> JSONAny {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
+            let decoder = JSONDecoder()
+            return try decoder.decode(JSONAny.self, from: jsonData)
+        } catch {
+            fatalError("JSONAny initialization failed")
+        }
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self as? String)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        if let arr = value as? [Any] {
+            var container = encoder.unkeyedContainer()
+            try JSONAny.encode(to: &container, array: arr)
+        } else if let dict = value as? [String: Any] {
+            var container = encoder.container(keyedBy: MyCodingKey.self)
+            try JSONAny.encode(to: &container, dictionary: dict)
+        } else {
+            var container = encoder.singleValueContainer()
+            try JSONAny.encode(to: &container, value: value)
+        }
+    }
 
     static func decodingError(forCodingPath codingPath: [CodingKey]) -> DecodingError {
         let context = DecodingError.Context(codingPath: codingPath, debugDescription: "Cannot decode JSONAny")
@@ -184,45 +218,9 @@ public class JSONAny: Codable, Equatable, Hashable, @unchecked Sendable {
             throw encodingError(forValue: value, codingPath: container.codingPath)
         }
     }
-
-    public required init(from decoder: Decoder) throws {
-        if var arrayContainer = try? decoder.unkeyedContainer() {
-            value = try JSONAny.decodeArray(from: &arrayContainer)
-        } else if var container = try? decoder.container(keyedBy: MyCodingKey.self) {
-            value = try JSONAny.decodeDictionary(from: &container)
-        } else {
-            let container = try decoder.singleValueContainer()
-            value = try JSONAny.decode(from: container)
-        }
-    }
-
-    public static func from(value: Any) -> JSONAny {
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
-            let decoder = JSONDecoder()
-            return try decoder.decode(JSONAny.self, from: jsonData)
-        } catch {
-            fatalError("JSONAny initialization failed")
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        if let arr = value as? [Any] {
-            var container = encoder.unkeyedContainer()
-            try JSONAny.encode(to: &container, array: arr)
-        } else if let dict = value as? [String: Any] {
-            var container = encoder.container(keyedBy: MyCodingKey.self)
-            try JSONAny.encode(to: &container, dictionary: dict)
-        } else {
-            var container = encoder.singleValueContainer()
-            try JSONAny.encode(to: &container, value: value)
-        }
-    }
 }
 
 class MyCodingKey: CodingKey {
-    let key: String
-
     required init?(intValue _: Int) {
         return nil
     }
@@ -230,6 +228,8 @@ class MyCodingKey: CodingKey {
     required init?(stringValue: String) {
         key = stringValue
     }
+
+    let key: String
 
     var intValue: Int? {
         return nil

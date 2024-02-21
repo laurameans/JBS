@@ -24,8 +24,9 @@ public struct ReportSchema: RawRepresentable, Equatable, Sendable, Codable {
         self.rawValue = rawValue
     }
 
-    public var rawValue: String
     public typealias RawValue = String
+
+    public var rawValue: String
 }
 
 public extension ReportSchema {

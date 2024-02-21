@@ -10,10 +10,10 @@ import JBS
 
 public enum AIModel: String, DTO {
     #if os(macOS)
-        case stableDiffusionV1_5macOS
-        case riffusionV1_0original
+    case stableDiffusionV1_5macOS
+    case riffusionV1_0original
     #elseif os(iOS)
-        case stableDiffusionV1_5iOS
+    case stableDiffusionV1_5iOS
     #endif
     case stableDiffusionV2_1macOS
     case riffusionV1_0NeuralEngine
@@ -48,17 +48,21 @@ public enum AIModel: String, DTO {
     case deepTake_3_0_1024x512_Neural
     case deepTake_3_0_512x1024_Neural
 
+    public enum ProviderType: String {
+        case zip
+    }
+
     public var remoteURL: URL {
         switch self {
         #if os(macOS)
-            case .stableDiffusionV1_5macOS:
-                return URL(string: "https://cdn.outtakes.com/ai/models/CoreMLModelsMacSD1-5.zip")!
+        case .stableDiffusionV1_5macOS:
+            return URL(string: "https://cdn.outtakes.com/ai/models/CoreMLModelsMacSD1-5.zip")!
 
-            case .riffusionV1_0original:
-                return URL(string: "https://cdn.outtakes.com/ai/models/Riff1-0-ORIGINAL.zip")!
+        case .riffusionV1_0original:
+            return URL(string: "https://cdn.outtakes.com/ai/models/Riff1-0-ORIGINAL.zip")!
         #elseif os(iOS)
-            case .stableDiffusionV1_5iOS:
-                return URL(string: "https://cdn.outtakes.com/ai/models/CoreMLModelsiOSSD1-5.zip")!
+        case .stableDiffusionV1_5iOS:
+            return URL(string: "https://cdn.outtakes.com/ai/models/CoreMLModelsiOSSD1-5.zip")!
         #endif
         case .stableDiffusionV2_1macOS:
             return URL(string: "https://cdn.outtakes.com/ai/models/StableDiffusion2-1MacOriginal.zip")!
@@ -128,26 +132,18 @@ public enum AIModel: String, DTO {
         }
     }
 
-    public var providerType: ProviderType {
-        return .zip
-    }
-
-    public enum ProviderType: String {
-        case zip
-    }
-
     public var title: String {
         switch self {
         case .stableDiffusionV2_1macOS:
             return "Stable Diffusion 2.1"
         #if os(macOS)
-            case .stableDiffusionV1_5macOS:
-                return "Stable Diffusion 1.5"
-            case .riffusionV1_0original:
-                return "Riffusion 1.0 GPU"
+        case .stableDiffusionV1_5macOS:
+            return "Stable Diffusion 1.5"
+        case .riffusionV1_0original:
+            return "Riffusion 1.0 GPU"
         #elseif os(iOS)
-            case .stableDiffusionV1_5iOS:
-                return "Stable Diffusion 1.5"
+        case .stableDiffusionV1_5iOS:
+            return "Stable Diffusion 1.5"
         #endif
         case .riffusionV1_0NeuralEngine:
             return "Riffusion 1.0 Neural Engine"
@@ -210,5 +206,9 @@ public enum AIModel: String, DTO {
         case .deepTake_3_0_1024x512_Neural:
             return "DeepTake 3.0 1024x512 Neural"
         }
+    }
+
+    public var providerType: ProviderType {
+        return .zip
     }
 }

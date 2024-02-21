@@ -17,7 +17,8 @@ public enum RelationshipStatus: StringLiteralType, RawRepresentable, Codable {
 
     public var isRestricted: Bool {
         switch self {
-        case .banned, .suspended: return true
+        case .banned,
+             .suspended: return true
         default: return false
         }
     }

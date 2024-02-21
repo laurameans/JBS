@@ -23,11 +23,11 @@ public struct JBSApp: Codable, Hashable {
 }
 
 public struct JBSAppName: Codable, RawRepresentable, Hashable, Sendable {
-    public var rawValue: String
-
     public init(rawValue: String) {
         self.rawValue = rawValue
     }
+
+    public var rawValue: String
 }
 
 public enum JBSAppType: Codable, Hashable {

@@ -10,14 +10,6 @@ import Foundation
 // MARK: - Encode/decode helpers
 
 public class JSONNull: Codable, Hashable {
-    public static func == (_: JSONNull, _: JSONNull) -> Bool {
-        return true
-    }
-
-    public var hashValue: Int {
-        return 0
-    }
-
     public init() {}
 
     public required init(from decoder: Decoder) throws {
@@ -25,6 +17,14 @@ public class JSONNull: Codable, Hashable {
         if !container.decodeNil() {
             throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
         }
+    }
+
+    public var hashValue: Int {
+        return 0
+    }
+
+    public static func == (_: JSONNull, _: JSONNull) -> Bool {
+        return true
     }
 
     public func encode(to encoder: Encoder) throws {

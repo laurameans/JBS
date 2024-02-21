@@ -9,12 +9,6 @@ import Foundation
 
 @PublicInit
 public struct InferenceModel: DTO {
-    public var remoteURL: String
-    public var title: String
-    public var description: String?
-    public var architecture: Architecture
-    public var bytes: Int
-
     public enum Architecture: String, RawRepresentable, DTO {
         case stableDiffusion
         case stableDiffusionXL
@@ -24,4 +18,10 @@ public struct InferenceModel: DTO {
         case imageEncoderGGUF
         case coreML
     }
+
+    public var remoteURL: String
+    public var title: String
+    public var description: String?
+    public var architecture: Architecture
+    public var bytes: Int
 }

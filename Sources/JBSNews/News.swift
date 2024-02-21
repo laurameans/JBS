@@ -2,7 +2,7 @@ import Foundation
 import JBS
 import JCX
 
-public struct News {
+public enum News {
     @PublicInit
     public struct Global: DTO {
         public var id: String
@@ -18,8 +18,9 @@ public struct News {
     }
 
     public enum NewsType: StringLiteralType, RawRepresentable, Codable {
-        public static let schema = "news_type_enum"
         case macro
         case micro
+
+        public static let schema = "news_type_enum"
     }
 }

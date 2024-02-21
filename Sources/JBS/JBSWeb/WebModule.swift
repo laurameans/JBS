@@ -9,18 +9,6 @@ import Foundation
 
 @PublicInit
 public struct WebContent: DTO, Duplicatable {
-    public var id: UUID
-    public var type: ModuleType
-    public var value: String
-    public var link: String?
-    public var enabled: Bool = true
-    public var rawHTML: String?
-    public var doubleWidth: Bool?
-    public var style: String?
-    public var computedHTML: String {
-        ""
-    }
-
     public enum ModuleType: DTO, CaseIterable {
         case text
         case image
@@ -48,5 +36,18 @@ public struct WebContent: DTO, Duplicatable {
                 "film"
             }
         }
+    }
+
+    public var id: UUID
+    public var type: ModuleType
+    public var value: String
+    public var link: String?
+    public var enabled: Bool = true
+    public var rawHTML: String?
+    public var doubleWidth: Bool?
+    public var style: String?
+
+    public var computedHTML: String {
+        ""
     }
 }

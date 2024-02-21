@@ -13,30 +13,6 @@ extension String: ReplicateOutput {}
 public enum Replicate {
     @PublicInit
     public struct ClipInterrogator: ReplicatePrediction {
-        public var id: String
-
-        public var version: String
-
-        public var urls: Replicate.Urls
-
-        public var createdAt: String?
-
-        public var completedAt: String?
-
-        public var status: Replicate.Status
-
-        public var input: Input
-
-        public var output: Output?
-
-        public var error: String?
-
-        public var logs: String?
-
-        public var metrics: Replicate.Metrics
-
-        public static var slug: String { "clipinterrogator" }
-
         @PublicInit
         public struct Create: ReplicateCreate {
             public var version: Replicate.Version
@@ -51,39 +27,24 @@ public enum Replicate {
                 self.mode = mode
             }
 
-            public var costUSD: Double { 0.14 }
-            /// ImageURL
-            public var image: String
-            public var clipModelName: String
-            public var mode: String?
-
             public enum CodingKeys: String, CodingKey {
                 case image
                 case clipModelName = "clip_model_name"
                 case mode
             }
+
+            /// ImageURL
+            public var image: String
+            public var clipModelName: String
+            public var mode: String?
+
+            public var costUSD: Double { 0.14 }
         }
 
         public typealias Output = String
         public typealias Status = Replicate.Status
-    }
-    
-    @PublicInit
-    public struct StableDiffusion: ReplicatePrediction {
-        public static var slug: String { "stablediffusion" }
 
-        @PublicInit
-        public struct Create: ReplicateCreate {
-            public var version: Replicate.Version
-
-            public var webhookCompleted: String?
-
-            public var input: StableDiffusion.Input
-        }
-
-        public var input: Input
-
-        public typealias Output = ReplicateSDOutput
+        public static var slug: String { "clipinterrogator" }
 
         public var id: String
 
@@ -97,6 +58,8 @@ public enum Replicate {
 
         public var status: Replicate.Status
 
+        public var input: Input
+
         public var output: Output?
 
         public var error: String?
@@ -104,11 +67,23 @@ public enum Replicate {
         public var logs: String?
 
         public var metrics: Replicate.Metrics
+    }
+
+    @PublicInit
+    public struct StableDiffusion: ReplicatePrediction {
+        @PublicInit
+        public struct Create: ReplicateCreate {
+            public var version: Replicate.Version
+
+            public var webhookCompleted: String?
+
+            public var input: StableDiffusion.Input
+        }
+
+        public typealias Output = ReplicateSDOutput
 
         @PublicInit
         public struct Input: ReplicateInput {
-            public var costUSD: Double { Double(numOutputs ?? 1) * 0.04 }
-
             /// Input prompt
             public var prompt: String
             /// Width of output image. Maximum size is 1024x768 or 768x1024 because of memory limits
@@ -129,6 +104,8 @@ public enum Replicate {
             public var initImage: String?
             public var mask: String?
 
+            public var costUSD: Double { Double(numOutputs ?? 1) * 0.04 }
+
             enum CodingKeys: String, CodingKey {
                 case prompt
                 case width
@@ -142,26 +119,8 @@ public enum Replicate {
                 case mask
             }
         }
-    }
 
-    @PublicInit
-    public struct Fractal: ReplicatePrediction {
-        public static var slug: String { "fractal" }
-
-        @PublicInit
-        public struct Create: ReplicateCreate, Equatable {
-            public init() {
-                version = .fractal
-                webhookCompleted = nil
-                input = Input(prompt: "", outputFormat: "mp4", inpaintIter: 1)
-            }
-
-            public var version: Replicate.Version
-
-            public var webhookCompleted: String?
-
-            public var input: Fractal.Input
-        }
+        public static var slug: String { "stablediffusion" }
 
         public var input: Input
 
@@ -184,13 +143,32 @@ public enum Replicate {
         public var logs: String?
 
         public var metrics: Replicate.Metrics
+    }
+
+    @PublicInit
+    public struct Fractal: ReplicatePrediction {
+        @PublicInit
+        public struct Create: ReplicateCreate, Equatable {
+            public init() {
+                version = .fractal
+                webhookCompleted = nil
+                input = Input(prompt: "", outputFormat: "mp4", inpaintIter: 1)
+            }
+
+            public var version: Replicate.Version
+
+            public var webhookCompleted: String?
+
+            public var input: Fractal.Input
+        }
 
         @PublicInit
         public struct Input: ReplicateInput {
-            public var costUSD: Double { 0.14 }
             public var prompt: String
             public var outputFormat: String
             public var inpaintIter: Int
+
+            public var costUSD: Double { 0.14 }
 
             enum CodingKeys: String, CodingKey {
                 case prompt
@@ -207,12 +185,34 @@ public enum Replicate {
                 case mp4
             }
         }
+
+        public static var slug: String { "fractal" }
+
+        public var input: Input
+
+        public var id: String
+
+        public var version: String
+
+        public var urls: Replicate.Urls
+
+        public var createdAt: String?
+
+        public var completedAt: String?
+
+        public var status: Replicate.Status
+
+        public var output: Output?
+
+        public var error: String?
+
+        public var logs: String?
+
+        public var metrics: Replicate.Metrics
     }
 
     @PublicInit
     public struct LatentTraverse: ReplicatePrediction {
-        public static var slug: String { "latenttraverse" }
-
         public enum ColorCoherence: String, RawRepresentable, Codable, CircularCaseSequence {
             case matchFrame0LAB = "Match Frame 0 LAB"
             case matchFrame0HSV = "Match Frame 0 HSV"
@@ -245,9 +245,38 @@ public enum Replicate {
             public var input: LatentTraverse.Input
         }
 
-        public var input: Input
-
         public typealias Output = String
+
+        @PublicInit
+        public struct Input: ReplicateInput {
+            public var maxFrames: Int
+            public var angle: String
+            public var zoom: String
+            public var translationX: String
+            public var translationY: String
+            public var colorCoherence: ColorCoherence
+            public var sampler: Sampler
+            public var fps: Int
+            public var seed: Int?
+
+            public var costUSD: Double { 2.90 }
+
+            enum CodingKeys: String, CodingKey {
+                case maxFrames = "max_frames"
+                case angle
+                case zoom
+                case translationX = "translation_x"
+                case translationY = "translation_y"
+                case colorCoherence = "color_coherence"
+                case sampler
+                case fps
+                case seed
+            }
+        }
+
+        public static var slug: String { "latenttraverse" }
+
+        public var input: Input
 
         public var id: String
 
@@ -268,32 +297,6 @@ public enum Replicate {
         public var logs: String?
 
         public var metrics: Replicate.Metrics
-
-        @PublicInit
-        public struct Input: ReplicateInput {
-            public var costUSD: Double { 2.90 }
-            public var maxFrames: Int
-            public var angle: String
-            public var zoom: String
-            public var translationX: String
-            public var translationY: String
-            public var colorCoherence: ColorCoherence
-            public var sampler: Sampler
-            public var fps: Int
-            public var seed: Int?
-
-            enum CodingKeys: String, CodingKey {
-                case maxFrames = "max_frames"
-                case angle
-                case zoom
-                case translationX = "translation_x"
-                case translationY = "translation_y"
-                case colorCoherence = "color_coherence"
-                case sampler
-                case fps
-                case seed
-            }
-        }
     }
 
     public enum Status: String, RawRepresentable, DreamStatus {
@@ -342,6 +345,7 @@ public enum Replicate {
     }
 
     // MARK: - Urls
+
     @PublicInit
     public struct Urls: Codable, Hashable, Sendable {
         public var urlsGet: String
@@ -363,7 +367,6 @@ public protocol ReplicateCreate: DreamPredictionCreate {
     var version: Replicate.Version { get set }
     var input: Input { get set }
     var webhookCompleted: String? { get set }
-    //	init()
 }
 
 public extension ReplicateCreate {
@@ -382,7 +385,6 @@ public protocol ReplicatePrediction: DreamPrediction where Status == Replicate.S
     associatedtype Input: ReplicateInput
     associatedtype Output
     associatedtype Create: ReplicateCreate
-    //	associatedtype Status: Replicate.Status
     var version: String { get set }
     var urls: Replicate.Urls { get set }
     var createdAt: String? { get set }
@@ -394,21 +396,5 @@ public extension ReplicatePrediction {
     var idString: String { id as! String }
 }
 
-// extension Array: ReplicateOutput where Element: ReplicateOutput {
-//
-// }
-//
-//
-
 public typealias ReplicateSDOutput = [String]
 extension ReplicateSDOutput: Codable, Hashable, Sendable {}
-
-// extension ReplicateSDOutput: DreamOutput { }
-
-// extension Array: Codable, Hashable, Sendable where Element == String {
-////	func hash(into hasher: inout Hasher) {
-////		for element in self {
-////			hasher.combine(element)
-////		}
-////	}
-// }

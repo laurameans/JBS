@@ -34,15 +34,6 @@ public struct MonitorSystemMetrics: Codable, Hashable, Equatable {
 }
 
 public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
-    public var key: Key
-    public var value: Double
-    public var title: String?
-    public var roundingLevel: Int
-    public var position: Position
-    public var createdDate: Date?
-    public var updatedDate: Date?
-    public var deletedDate: Date?
-
     public init(key: MonitorStatisticsV2.Key, value: Double, title: String? = nil, roundingLevel: Int, position: MonitorStatisticsV2.Position, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
         self.key = key
         self.value = value
@@ -55,11 +46,6 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
     }
 
     public struct Key: RawRepresentable, Codable, Sendable, Hashable {
-        public var rawValue: String
-        public var title: String?
-        public var roundingLevel: Int?
-        public var position: Position?
-
         public init(rawValue: String) {
             self.rawValue = rawValue
         }
@@ -70,6 +56,11 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
             self.roundingLevel = roundingLevel
             self.position = position
         }
+
+        public var rawValue: String
+        public var title: String?
+        public var roundingLevel: Int?
+        public var position: Position?
     }
 
     public enum Position: Int, Codable, Sendable, Hashable {
@@ -78,6 +69,15 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
         case middle = 2
         case bottom = 1
     }
+
+    public var key: Key
+    public var value: Double
+    public var title: String?
+    public var roundingLevel: Int
+    public var position: Position
+    public var createdDate: Date?
+    public var updatedDate: Date?
+    public var deletedDate: Date?
 }
 
 public extension MonitorStatisticsV2 {

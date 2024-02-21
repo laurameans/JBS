@@ -9,15 +9,6 @@ import Foundation
 
 @propertyWrapper
 public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Sendable>: Codable, Hashable, Sendable {
-    public var wrappedValue: T?
-    public var precision: Precision = .original
-
-    public enum Precision: DTO {
-        case original
-        case twoPoint
-        case integer
-    }
-
     public init(precision: Precision = .original, wrappedValue: T?) {
         self.wrappedValue = wrappedValue
         self.precision = precision
@@ -49,6 +40,15 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Send
             wrappedValue = nil
         }
     }
+
+    public enum Precision: DTO {
+        case original
+        case twoPoint
+        case integer
+    }
+
+    public var wrappedValue: T?
+    public var precision: Precision = .original
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()

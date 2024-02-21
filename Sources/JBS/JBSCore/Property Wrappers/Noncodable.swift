@@ -10,7 +10,6 @@ import Foundation
 /// A property wrapper for properties of a type that should be "skipped" when the type is encoded or decoded.
 @propertyWrapper
 public struct NonCodable<Value: Sendable>: Sendable {
-    private var value: Value?
     public init(wrappedValue: Value?) {
         value = wrappedValue
     }
@@ -19,6 +18,8 @@ public struct NonCodable<Value: Sendable>: Sendable {
         get { value }
         set { value = newValue }
     }
+
+    private var value: Value?
 }
 
 extension NonCodable: Codable, Hashable {

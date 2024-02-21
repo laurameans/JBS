@@ -9,13 +9,6 @@ import Foundation
 import JBS
 
 public enum OpenAI {
-    public static var encoder: JSONEncoder {
-        let e = JSONEncoder()
-        e.dateEncodingStrategy = .iso8601
-        e.keyEncodingStrategy = .convertToSnakeCase
-        return e
-    }
-    
     @PublicInit
     public struct AuthenticatedChatRequest: Codable {
         public var request: ChatRequest
@@ -29,7 +22,7 @@ public enum OpenAI {
         public var title: String?
         public var id: UUID
     }
-    
+
     @PublicInit
     public struct ChatRequest: Codable {
         public var model: String = "gpt-3.5-turbo"
@@ -76,14 +69,14 @@ public enum OpenAI {
 
     @PublicInit
     public struct ChatMessage: Codable, Hashable {
-        public var role: Role
-        public var content: String
-
         public enum Role: String, RawRepresentable, Codable {
             case system
             case assistant
             case user
         }
+
+        public var role: Role
+        public var content: String
     }
 
     @PublicInit
@@ -142,6 +135,7 @@ public enum OpenAI {
     // synthesized for types that have collections (such as arrays or dictionaries).
 
     // MARK: - CompletionChoice
+
     @PublicInit
     public struct CompletionChoice: Codable, Equatable {
         public var text: String
@@ -162,6 +156,7 @@ public enum OpenAI {
     // synthesized for types that have collections (such as arrays or dictionaries).
 
     // MARK: - CompletionUsage
+
     @PublicInit
     public struct CompletionUsage: Codable, Equatable {
         public var promptTokens: Int
@@ -173,5 +168,12 @@ public enum OpenAI {
             case completionTokens = "completion_tokens"
             case totalTokens = "total_tokens"
         }
+    }
+
+    public static var encoder: JSONEncoder {
+        let e = JSONEncoder()
+        e.dateEncodingStrategy = .iso8601
+        e.keyEncodingStrategy = .convertToSnakeCase
+        return e
     }
 }
