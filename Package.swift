@@ -11,11 +11,11 @@ import PackageDescription
 let package = Package(
     name: "JBS",
 	platforms: [
-		.macOS(.v10_15),
-		.iOS(.v13),
-		.tvOS(.v13),
-		.watchOS(.v6),
-		.macCatalyst(.v13),
+		.macOS(.v13),
+		.iOS(.v16),
+		.tvOS(.v16),
+		.watchOS(.v8),
+		.macCatalyst(.v16),
         .visionOS(.v1)
 	],
     products: [
@@ -31,11 +31,13 @@ let package = Package(
 //        .package(url: "https://github.com/JustinMeans/WebsocketActorSystem", .branch("main"))
         .package(url: "https://github.com/MeansAI/SwiftDate/", from: "1.0.0"),
         .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/JCX/", branch: "main"),
+        .package(url: "https://github.com/samalone/websocket-actor-system.git", from: "1.0.0"),
     ],
     targets: [
 		.target(name: "JBS", dependencies: [
             .product(name: "SwiftDate", package: "SwiftDate"),
-            .product(name: "JCX", package: "JCX")
+            .product(name: "JCX", package: "JCX"),
+            .product(name: "WebSocketActors", package: "websocket-actor-system"),
         ]),
         .target(name: "JBSNews", dependencies: [
             "JBS"
