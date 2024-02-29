@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import APNSCore
 
 @PublicInit
 public struct Message: DTO {
