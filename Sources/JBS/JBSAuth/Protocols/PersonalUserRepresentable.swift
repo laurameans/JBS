@@ -18,7 +18,7 @@ public protocol PersonalUserRepresentable: Codable, Identifiable, Hashable {
     var id: UUID? { get }
     var hasAcceptedTermsAndConditions: Bool { get set }
     var hasAcceptedPrivacyPolicy: Bool { get set }
-    var messages: [Message.Global]? { get set }
+    var messages: [Message]? { get set }
 }
 
 public extension PersonalUserRepresentable {
