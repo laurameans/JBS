@@ -7,6 +7,7 @@
 
 import Foundation
 import Distributed
+#if !os(visionOS)
 import WebSocketActors
 
 typealias DefaultDistributedActorSystem = WebSocketActorSystem
@@ -18,3 +19,4 @@ typealias DefaultDistributedActorSystem = WebSocketActorSystem
 extension ActorIdentity {
     public static let heartbeatServer = ActorIdentity(id: "heartbeatServer")
 }
+#endif

@@ -7,6 +7,7 @@
 
 import Distributed
 import Foundation
+#if !os(visionOS)
 import WebSocketActors
 
 public distributed actor HeartbeatServerActor {
@@ -65,3 +66,4 @@ public distributed actor HeartbeatServerActor {
 public protocol HeartbeatServerImplementation {
     func receiveHeartbeatClientEvent(_ event: HeartbeatClientEvent) async throws
 }
+#endif
