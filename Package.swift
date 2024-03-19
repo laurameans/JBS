@@ -37,7 +37,7 @@ let package = Package(
 		.target(name: "JBS", dependencies: [
             .product(name: "SwiftDate", package: "SwiftDate"),
             .product(name: "JCX", package: "JCX"),
-            .product(name: "WebSocketActors", package: "websocket-actor-system", condition: .when(platforms: [.macOS, .iOS, .linux, .tvOS, .watchOS, .macCatalyst])),
+//            .product(name: "WebSocketActors", package: "websocket-actor-system", condition: .when(platforms: [.macOS, .iOS, .linux, .tvOS, .watchOS, .macCatalyst])),
         ]),
         .target(name: "JBSNews", dependencies: [
             "JBS"

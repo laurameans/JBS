@@ -1,36 +1,34 @@
+////
+////  File.swift
+////
+////
+////  Created by Justin Means on 2/22/24.
+////
 //
-//  File.swift
+//import Distributed
+//import Foundation
+//import WebSocketActors
 //
+//public distributed actor HeartbeatClientActor {
+//    public typealias ActorSystem = WebSocketActorSystem
 //
-//  Created by Justin Means on 2/22/24.
+//    var client: HeartbeatClientImplementation
 //
-
-import Distributed
-import Foundation
-#if !os(visionOS)
-import WebSocketActors
-
-public distributed actor HeartbeatClientActor {
-    public typealias ActorSystem = WebSocketActorSystem
-
-    var client: HeartbeatClientImplementation
-
-    public init(actorSystem: ActorSystem, client: HeartbeatClientImplementation) {
-        self.actorSystem = actorSystem
-        self.client = client
-    }
-
-    public distributed func retrieveToken() throws -> String? {
-        return try? client.retrieveToken()
-    }
-
-    public distributed func sendEvent(_ event: HeartbeatServerEvent) async throws {
-        try await client.receiveHeartbeatServerEvent(event)
-    }
-}
-
-public protocol HeartbeatClientImplementation {
-    func retrieveToken() throws -> String
-    func receiveHeartbeatServerEvent(_ event: HeartbeatServerEvent) async throws
-}
-#endif
+//    public init(actorSystem: ActorSystem, client: HeartbeatClientImplementation) {
+//        self.actorSystem = actorSystem
+//        self.client = client
+//    }
+//
+//    public distributed func retrieveToken() throws -> String? {
+//        return try? client.retrieveToken()
+//    }
+//
+//    public distributed func sendEvent(_ event: HeartbeatServerEvent) async throws {
+//        try await client.receiveHeartbeatServerEvent(event)
+//    }
+//}
+//
+//public protocol HeartbeatClientImplementation {
+//    func retrieveToken() throws -> String
+//    func receiveHeartbeatServerEvent(_ event: HeartbeatServerEvent) async throws
+//}

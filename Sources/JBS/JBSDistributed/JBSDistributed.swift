@@ -1,22 +1,22 @@
+////
+////  File.swift
+////  
+////
+////  Created by Justin Means on 2/21/24.
+////
 //
-//  File.swift
-//  
+//import Foundation
+//import Distributed
+//#if !os(visionOS)
+//import WebSocketActors
 //
-//  Created by Justin Means on 2/21/24.
+//typealias DefaultDistributedActorSystem = WebSocketActorSystem
 //
-
-import Foundation
-import Distributed
-#if !os(visionOS)
-import WebSocketActors
-
-typealias DefaultDistributedActorSystem = WebSocketActorSystem
-
-//extension NodeIdentity {
-//    public static let server = NodeIdentity(id: "server")
+////extension NodeIdentity {
+////    public static let server = NodeIdentity(id: "server")
+////}
+//
+//extension ActorIdentity {
+//    public static let heartbeatServer = ActorIdentity(id: "heartbeatServer")
 //}
-
-extension ActorIdentity {
-    public static let heartbeatServer = ActorIdentity(id: "heartbeatServer")
-}
-#endif
+//#endif
