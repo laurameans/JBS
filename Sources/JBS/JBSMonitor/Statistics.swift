@@ -47,7 +47,8 @@ public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
 
     public struct Key: RawRepresentable, Codable, Sendable, Hashable {
         public init(rawValue: String) {
-            self.rawValue = rawValue
+            let allowedCharacters = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_")
+            self.rawValue = String(rawValue.unicodeScalars.filter(allowedCharacters.contains))
         }
 
         public init(rawValue: String, title: String, roundingLevel: Int, position: Position) {
