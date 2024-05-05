@@ -32,11 +32,13 @@ let package = Package(
         .package(url: "https://github.com/MeansAI/SwiftDate/", from: "1.0.0"),
         .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/JCX/", branch: "main"),
         .package(url: "https://github.com/MeansAI/websocket-actor-system.git", branch: "main"),
+//        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
     ],
     targets: [
 		.target(name: "JBS", dependencies: [
             .product(name: "SwiftDate", package: "SwiftDate"),
             .product(name: "JCX", package: "JCX"),
+//            .product(name: "Logging", package: "swift-log")
 //            .product(name: "WebSocketActors", package: "websocket-actor-system", condition: .when(platforms: [.macOS, .iOS, .linux, .tvOS, .watchOS, .macCatalyst])),
         ]),
         .target(name: "JBSNews", dependencies: [

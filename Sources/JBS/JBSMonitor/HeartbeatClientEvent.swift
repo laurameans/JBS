@@ -7,35 +7,22 @@
 
 import Foundation
 
-public enum HeartbeatClientEvent: DTO {
+// MARK: - HeartbeatEvent
+
+public enum HeartbeatEvent: Codable, Equatable {
     case activity
     case pulse
     case authenticate(token: String)
     case error(message: String)
-    case connect
-    case memoryWarning
-    case event(_ data: Data)
-
-    public func encoded() throws -> Data {
-        return try JSONEncoder().encode(self)
-    }
-}
-
-public enum HeartbeatServerEvent: DTO {
-    case error(message: String)
     case connected
-    case state(_ state: State)
-    case event(_ data: Data)
-    
-    public enum State: DTO {
-        case operational
-        case degraded(_ message: String)
-        case outage(_ message: String)
-    }
-    
+    case memoryWarning
+    case event(_ event: JSONAny)
+
     public func encoded() throws -> Data {
         return try JSONEncoder().encode(self)
     }
 }
+
+// MARK: - EventRepresentable
 
 public protocol EventRepresentable: Codable, Equatable, Sendable {}
