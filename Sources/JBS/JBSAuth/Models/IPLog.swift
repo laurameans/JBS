@@ -82,3 +82,43 @@ public struct MainframeIPLog: Codable, Hashable {
         public var micro: MainframeIPLog.Micro
     }
 }
+
+public struct JWSIPLog: Codable, Hashable {
+    public var country: String?
+    public var stateprov: String?
+    public var stateprovCode: String?
+    public var city: String?
+    public var latitude: String?
+    public var longitude: String?
+    public var continent: String?
+    public var timezone: String?
+    public var usMetroCode: Int?
+    public var accuracyRadius: Int?
+    public var asn: Int?
+    public var asnOrganization: String?
+    public var asnNetwork: String?
+    public var reverse: String?
+    public var query: String?
+    
+    public enum CodingKeys: String, CodingKey {
+        case country = "country"
+        case stateprov = "stateprov"
+        case stateprovCode = "stateprovCode"
+        case city = "city"
+        case latitude = "latitude"
+        case longitude = "longitude"
+        case continent = "continent"
+        case timezone = "timezone"
+        case usMetroCode = "usMetroCode"
+        case accuracyRadius = "accuracyRadius"
+        case asn = "asn"
+        case asnOrganization = "asnOrganization"
+        case asnNetwork = "asnNetwork"
+        case reverse = "reverse"
+        case query = "query"
+    }
+    
+    public var ipLog: IPLog {
+        IPLog(status: nil, continent: self.continent, continentCode: nil, country: self.country, countryCode: nil, region: nil, regionName: nil, city: self.city, district: nil, zip: nil, lat: self.latitude.flatMap { Double($0) }, lon: self.longitude.flatMap { Double($0) }, timezone: self.timezone, offset: nil, currency: nil, isp: nil, org: nil, ipLogAs: asnOrganization, asname: asn.map { String($0) }, reverse: reverse, mobile: nil, proxy: nil, hosting: nil, query: query)
+    }
+}
