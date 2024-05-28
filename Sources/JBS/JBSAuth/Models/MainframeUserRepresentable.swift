@@ -9,7 +9,7 @@ import Foundation
 
 public enum MainframeUserRepresentable {
     @PublicInit
-    public struct Micro: Codable, Hashable, Equatable, Sendable {
+    public struct Micro: DTO {
         public var username: String?
         public var profilePicURL: String?
         public var lastConnected: Date?
@@ -18,5 +18,6 @@ public enum MainframeUserRepresentable {
         public var id: UUID?
         public var lastIPLog: IPLog?
         public var dailyEngagement: [String: Engagement]?
+        public var hardware: [JBS.Hardware]?
     }
 }
