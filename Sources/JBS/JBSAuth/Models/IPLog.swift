@@ -8,7 +8,7 @@
 import Foundation
 
 @PublicInit
-public struct IPLog: Codable, Hashable {
+public struct IPLog: DTO, Displayable {
     public let status: String?
     public let continent: String?
     public let continentCode: String?
@@ -59,6 +59,47 @@ public struct IPLog: Codable, Hashable {
         case proxy
         case hosting
         case query
+    }
+    
+    public var display: OrderedDictionary<String, String> {
+        let properties: OrderedDictionary<String, String?> = [
+            "Status": status,
+            "Continent": continent,
+            "Continent Code": continentCode,
+            "Country": country,
+            "Country Code": countryCode,
+            "Region": region,
+            "Region Name": regionName,
+            "City": city,
+            "District": district,
+            "ZIP Code": zip,
+            "Latitude": lat?.description,
+            "Longitude": lon?.description,
+            "Timezone": timezone,
+            "UTC Offset": offset?.description,
+            "Currency": currency,
+            "ISP": isp,
+            "Organization": org,
+            "AS Number": ipLogAs,
+            "AS Name": asname,
+            "Reverse DNS": reverse,
+            "Mobile": mobile?.description,
+            "Proxy": proxy?.description,
+            "Hosting": hosting?.description,
+            "Query IP": query
+        ]
+        
+        return properties.compactMapValues { $0 }
+    }
+    
+    public var compactDisplay: OrderedDictionary<String, String> {
+        let properties: OrderedDictionary<String, String?> = [
+            "Location": "\(city.map { "\($0), "}.unwrapped)\(regionName.map { "\($0), " }.unwrapped)\(country.map { "\($0)" }.unwrapped)\(zip.map { ", \($0)" }.unwrapped)\(lat.map { ". Lat: \($0)" }.unwrapped)\(lon.map { ", Lon: \($0)" }.unwrapped)",
+            "ISP": "\(ipLogAs.map { "Log As: \($0), " }.unwrapped)\(reverse.map { "Reverse: \($0)" }.unwrapped)",
+        ]
+        
+        // Filter out nil values
+        return properties.compactMapValues { $0 }
     }
 }
 

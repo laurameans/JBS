@@ -45,3 +45,9 @@ public extension String {
         return "(\(areaCode)) \(middle)-\(last)"
     }
 }
+
+public extension Optional where Wrapped == String {
+    var unwrapped: String {
+        return self ?? ""
+    }
+}

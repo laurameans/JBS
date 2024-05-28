@@ -7,5 +7,6 @@
 
 import Foundation
 @_exported import JCX
+@_exported import Collections
 
 public protocol DTO: Codable, Equatable, Hashable, Sendable {}

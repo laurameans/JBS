@@ -7,8 +7,10 @@
 
 import Foundation
 
+// MARK: - Displayable
+
 public protocol Displayable {
-    var display: KeyValuePairs<String, String> { get }
+    var display: OrderedDictionary<String, String> { get }
 }
 
 public extension String {
