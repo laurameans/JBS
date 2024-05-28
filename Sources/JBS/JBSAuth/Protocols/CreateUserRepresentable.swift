@@ -18,8 +18,9 @@ public protocol CreateUserRepresentable: Codable, Hashable {
     static var useFirstLast: Bool { get }
     var firstName: String { get set }
     var lastName: String { get set }
+    var hardware: Hardware? { get set }
 
     init()
 
-    init(username: String?, email: String, name: String, firstName: String, lastName: String, password: String, hasAcceptedTermsAndConditions: Bool, hasAcceptedPrivacyPolicy: Bool)
+    init(username: String?, email: String, name: String, firstName: String, lastName: String, password: String, hasAcceptedTermsAndConditions: Bool, hasAcceptedPrivacyPolicy: Bool, hardware: Hardware?)
 }

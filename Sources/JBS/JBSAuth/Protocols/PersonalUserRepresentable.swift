@@ -19,6 +19,7 @@ public protocol PersonalUserRepresentable: Codable, Identifiable, Hashable {
     var hasAcceptedTermsAndConditions: Bool { get set }
     var hasAcceptedPrivacyPolicy: Bool { get set }
     var messages: [Message]? { get set }
+    var hardware: Hardware? { get set }
 }
 
 public extension PersonalUserRepresentable {

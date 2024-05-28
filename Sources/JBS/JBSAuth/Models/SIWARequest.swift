@@ -15,4 +15,5 @@ public struct SIWARequest: DTO {
     public var fullName: String?
     public var email: String?
     public var appleIdentityToken: String
+    public var hardware: Hardware?
 }
