@@ -8,7 +8,7 @@
 import Foundation
 
 @PublicInit
-public struct Engagement: Codable, Hashable, Equatable {
+public struct Engagement: DTO {
     public var durationSeconds: Double
     public var activity: Int
     public var pulses: Int
