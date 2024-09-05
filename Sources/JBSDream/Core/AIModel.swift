@@ -29,7 +29,6 @@ public enum AIModel: String, DTO {
     case sd_2_ControlScribbleMax
     case sd_2_ControlScribbleNeural
     case sd_1_5_TemporalCannyMax
-
     case sd_2_1_PalettizedNeural
     case sd_2_1_PalettizedMax
     case sd_2_1_ControlScribblePalettizedNeural
