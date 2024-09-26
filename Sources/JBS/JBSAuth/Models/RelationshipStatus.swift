@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum RelationshipStatus: StringLiteralType, RawRepresentable, Codable {
+public enum RelationshipStatus: StringLiteralType, RawRepresentable, DTO {
     case following
     case blocked
     case muted

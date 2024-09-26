@@ -8,7 +8,7 @@
 import Foundation
 import JBS
 
-public protocol DiffusionGenerated: Identifiable, Hashable {
+public protocol DiffusionGenerated: DTO, Identifiable {
     var id: UUID { get set }
     var prompt: String { get set }
     var negativePrompt: String { get set }
@@ -43,7 +43,7 @@ public struct UserGeneratedImage<User: MicroUserRepresentable>: Reportable, DTO,
     public var id: UUID? { generatedImage.remoteID }
 }
 
-public struct GeneratedImage: DiffusionGenerated, DTO {
+public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
     public var upscaled: Bool?
 
     public var remoteID: UUID?

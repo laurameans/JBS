@@ -8,13 +8,13 @@
 import Foundation
 
 @PublicInit
-public struct Resolution<User: MicroUserRepresentable>: Codable, Hashable {
+public struct Resolution<User: MicroUserRepresentable>: DTO {
     public var resolutionType: ResolutionType
     public var resolvedBy: User
     public var additionalComments: String?
 }
 
-public enum ResolutionType: Codable, CodingKey {
+public enum ResolutionType: DTO, CodingKey {
     case noAction
     case contentRemoved
     case contentHidden

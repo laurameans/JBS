@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol SearchResultRepresentable: Codable, Hashable, Equatable, Identifiable {
+public protocol SearchResultRepresentable: DTO, Identifiable {
     var title: String { get }
     var subtitle: String? { get }
     var imageURL: String? { get }

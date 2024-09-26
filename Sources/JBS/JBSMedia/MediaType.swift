@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MediaType: StringLiteralType, RawRepresentable, Codable {
+public enum MediaType: StringLiteralType, RawRepresentable, DTO {
     case image
     case pdf
     case audio

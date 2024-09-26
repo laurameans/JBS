@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - StringValueDecodable
+
 @propertyWrapper
 public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Sendable>: Codable, Hashable, Sendable {
     public init(precision: Precision = .original, wrappedValue: T?) {
@@ -24,16 +26,16 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Send
 
             do {
                 wrappedValue = try container.decode(T?.self)
-            } catch let underlyingError {
+            } catch _ {
                 do {
                     let stringValue = try container.decode(String?.self)
                     guard let stringValue = stringValue, let decimalValue = T(string: stringValue) else {
-                        self.wrappedValue = nil
+                        wrappedValue = nil
                         return
                     }
-                    self.wrappedValue = decimalValue
-                } catch let underlyingError {
-                    self.wrappedValue = nil
+                    wrappedValue = decimalValue
+                } catch _ {
+                    wrappedValue = nil
                 }
             }
         } catch {
@@ -83,13 +85,19 @@ public struct StringValueDecodable<T: Codable & Hashable & StringInitable & Send
     }
 }
 
+// MARK: - StringInitableError
+
 public enum StringInitableError: Error {
     case stringIsNonGenericType(underlyingError: Error)
 }
 
+// MARK: - StringInitable
+
 public protocol StringInitable {
     init?(string: String)
 }
+
+// MARK: - Decimal + StringInitable
 
 extension Decimal: StringInitable {
     public init?(string: String) {
@@ -124,12 +132,16 @@ public extension Decimal {
     }
 }
 
+// MARK: - Float + StringInitable
+
 extension Float: StringInitable {
     public init?(string: String) {
         guard let number = NumberFormatter().number(from: string) else { return nil }
         self = number.floatValue
     }
 }
+
+// MARK: - Int + StringInitable
 
 extension Int: StringInitable {
     public init?(string: String) {

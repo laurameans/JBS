@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol GlobalUserRepresentable: Codable, Identifiable, Hashable {
+public protocol GlobalUserRepresentable: DTO, Identifiable {
     associatedtype Micro: MicroUserRepresentable
     var micro: Micro { get set }
     var id: UUID? { get }

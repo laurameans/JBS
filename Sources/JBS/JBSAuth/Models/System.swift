@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum OperatingSystem: String, Codable {
+public enum OperatingSystem: String, DTO {
     case iOS
     case macOS
     case android

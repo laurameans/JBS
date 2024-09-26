@@ -347,10 +347,10 @@ public struct FunctionalLazy<Value>: LazyContainer {
 
     /// The actual functionality of `FunctionalLazy`, separated so that the semantics work out better
     @propertyWrapper
-    private final class Guts<Value> {
+    private final class Guts<Value1> {
         /// Creates a non-resettable lazy container's guts with the given value-initializer. That function will be
         /// called the very first time a value is needed.
-        init(initializer: @escaping Initializer<Value>) {
+        init(initializer: @escaping Initializer<Value1>) {
             self.initializer = initializer
             self.initializer = {
                 let semaphore = self.semaphore
@@ -370,7 +370,7 @@ public struct FunctionalLazy<Value>: LazyContainer {
         public var isInitialized: Bool { semaphore == nil }
 
         /// The closure called every time a value is needed
-        var initializer: Initializer<Value>
+        var initializer: Initializer<Value1>
 
         /// Guarantees that, on first-init, only one thread initializes the value. After that, this is set to `nil`
         /// because subsequent threads can safely access the value without the risk of setting it again.
@@ -380,7 +380,7 @@ public struct FunctionalLazy<Value>: LazyContainer {
         /// If there is none, it is created using the initializer given when these guts were created. This process
         /// only happens on the first call to `wrappedValue`; subsequent calls return the cached value from the first
         /// call, or any value you've set this to.
-        var wrappedValue: Value {
+        var wrappedValue: Value1 {
             get { initializer() }
             set { initializer = { newValue } }
         }

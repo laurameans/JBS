@@ -8,7 +8,11 @@
 import Foundation
 import JBS
 
+// MARK: - String + ReplicateOutput
+
 extension String: ReplicateOutput {}
+
+// MARK: - Replicate
 
 public enum Replicate {
     @PublicInit
@@ -358,9 +362,13 @@ public enum Replicate {
     }
 }
 
+// MARK: - ReplicateInput
+
 public protocol ReplicateInput: DreamInput {
     var costUSD: Double { get }
 }
+
+// MARK: - ReplicateCreate
 
 public protocol ReplicateCreate: DreamPredictionCreate {
     associatedtype Input: ReplicateInput
@@ -379,12 +387,14 @@ public extension ReplicateCreate {
     }
 }
 
+// MARK: - ReplicateOutput
+
 public protocol ReplicateOutput: DreamOutput {}
 
-public protocol ReplicatePrediction: DreamPrediction where Status == Replicate.Status {
-    associatedtype Input: ReplicateInput
+// MARK: - ReplicatePrediction
+
+public protocol ReplicatePrediction: DreamPrediction where Status == Replicate.Status, Input: ReplicateInput, Create: ReplicateCreate {
     associatedtype Output
-    associatedtype Create: ReplicateCreate
     var version: String { get set }
     var urls: Replicate.Urls { get set }
     var createdAt: String? { get set }
@@ -397,4 +407,3 @@ public extension ReplicatePrediction {
 }
 
 public typealias ReplicateSDOutput = [String]
-extension ReplicateSDOutput: Codable, Hashable, Sendable {}

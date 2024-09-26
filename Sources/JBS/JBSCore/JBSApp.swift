@@ -8,7 +8,7 @@
 import Foundation
 
 @PublicInit
-public struct JBSApp: Codable, Hashable {
+public struct JBSApp: DTO {
     public var baseURL: String
     public var title: String
     public var slogan: String
@@ -22,7 +22,7 @@ public struct JBSApp: Codable, Hashable {
     public var githubServerRepoName: String?
 }
 
-public struct JBSAppName: Codable, RawRepresentable, Hashable, Sendable {
+public struct JBSAppName: RawRepresentable, DTO {
     public init(rawValue: String) {
         self.rawValue = rawValue
     }
@@ -30,7 +30,7 @@ public struct JBSAppName: Codable, RawRepresentable, Hashable, Sendable {
     public var rawValue: String
 }
 
-public enum JBSAppType: Codable, Hashable {
+public enum JBSAppType: DTO {
     case all
     case app(_ app: JBSApp)
 

@@ -21,4 +21,7 @@ public typealias NSUISize = CGSize
 public typealias NSUIImage = NSImage
 public typealias NSUISize = NSSize
 #endif
+
+extension NSUIImage: @retroactive @unchecked Sendable {}
+
 #endif

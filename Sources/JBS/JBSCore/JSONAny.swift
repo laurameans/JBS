@@ -37,7 +37,7 @@ public class JSONAny: Codable, Equatable, Hashable, @unchecked Sendable {
     }
 
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(self as? String)
+        
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -220,7 +220,7 @@ public class JSONAny: Codable, Equatable, Hashable, @unchecked Sendable {
     }
 }
 
-class MyCodingKey: CodingKey {
+final class MyCodingKey: CodingKey {
     required init?(intValue _: Int) {
         return nil
     }

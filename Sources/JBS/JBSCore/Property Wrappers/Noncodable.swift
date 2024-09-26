@@ -24,7 +24,7 @@ public struct NonCodable<Value: Sendable>: Sendable {
 
 extension NonCodable: Codable, Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.finalize()
+        
     }
 
     public static func == (_: NonCodable<Value>, _: NonCodable<Value>) -> Bool {

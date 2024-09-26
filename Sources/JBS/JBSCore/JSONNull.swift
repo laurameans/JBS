@@ -18,11 +18,11 @@ public class JSONNull: Codable, Hashable {
             throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
         }
     }
-
-    public var hashValue: Int {
-        return 0
+    
+    public func hash(into hasher: inout Hasher) {
+        
     }
-
+    
     public static func == (_: JSONNull, _: JSONNull) -> Bool {
         return true
     }

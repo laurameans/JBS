@@ -17,7 +17,7 @@ public enum News {
         public var hasPaywall: Bool?
     }
 
-    public enum NewsType: StringLiteralType, RawRepresentable, Codable {
+    public enum NewsType: StringLiteralType, RawRepresentable, DTO {
         case macro
         case micro
 

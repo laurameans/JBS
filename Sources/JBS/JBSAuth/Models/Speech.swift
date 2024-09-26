@@ -57,7 +57,7 @@ public enum Speech {
                     return "\(text.ssmlFormatted)"
                 }
             }
-            var ret = "<speak>\(text)</speak>"
+            let ret = "<speak>\(text)</speak>"
             return ret
         }
 
@@ -68,7 +68,7 @@ public enum Speech {
                     return text
                 case let .conversational(text):
                     return text
-                case let .pause(durationMS: durationMS):
+                    case .pause(durationMS: _):
                     return ssml
                 case let .standard(text):
                     return text

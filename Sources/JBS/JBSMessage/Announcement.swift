@@ -8,8 +8,8 @@
 import Foundation
 
 @PublicInit
-public struct Announcement: Codable, Identifiable, Equatable, Hashable {
-    public enum Mode: String, Codable, CaseIterable {
+public struct Announcement: DTO, Identifiable {
+    public enum Mode: String, DTO, CaseIterable {
         case announcement
         case article
         case guide

@@ -8,7 +8,7 @@
 import Foundation
 
 @PublicInit
-public struct MonitorStatistics: Codable, Hashable {
+public struct MonitorStatistics: DTO {
     public var dailyActiveUsers: Int
     public var monthlyActiveUsers: Int
     public var totalUsers: Int
@@ -16,7 +16,7 @@ public struct MonitorStatistics: Codable, Hashable {
 }
 
 @PublicInit
-public struct MonitorSystemMetrics: Codable, Hashable, Equatable {
+public struct MonitorSystemMetrics: DTO {
     /// Virtual memory size in bytes.
     public var virtualMemoryBytes: Int
     /// Resident memory size in bytes.
@@ -33,7 +33,7 @@ public struct MonitorSystemMetrics: Codable, Hashable, Equatable {
     public var cpuUsage: Double
 }
 
-public struct MonitorStatisticsV2: Codable, Hashable, Sendable {
+public struct MonitorStatisticsV2: DTO {
     public init(key: MonitorStatisticsV2.Key, value: Double, title: String? = nil, roundingLevel: Int, position: MonitorStatisticsV2.Position, createdDate: Date? = nil, updatedDate: Date? = nil, deletedDate: Date? = nil) {
         self.key = key
         self.value = value

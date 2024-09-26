@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol MicroUserRepresentable: DTO {
+public protocol MicroUserRepresentable: DTO, Identifiable {
     var id: UUID? { get set }
     var name: String? { get set }
     var username: String? { get set }

@@ -103,9 +103,9 @@ public struct IPLog: DTO, Displayable {
     }
 }
 
-public struct MainframeIPLog: Codable, Hashable {
+public struct MainframeIPLog {
     @PublicInit
-    public struct Micro: Codable, Hashable, Identifiable {
+    public struct Micro: DTO, Identifiable {
         public var id: UUID?
         public var latitude: Double?
         public var longitude: Double?
@@ -118,13 +118,13 @@ public struct MainframeIPLog: Codable, Hashable {
     }
 
     @PublicInit
-    public struct Global: Codable, Hashable {
+    public struct Global: DTO {
         public var ipLog: IPLog
         public var micro: MainframeIPLog.Micro
     }
 }
 
-public struct JWSIPLog: Codable, Hashable {
+public struct JWSIPLog: DTO {
     public var country: String?
     public var stateprov: String?
     public var stateprovCode: String?
