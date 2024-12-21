@@ -9,14 +9,14 @@ import Foundation
 
 public enum Speech {
     @PublicInit
-    public struct Request: Codable {
+    public struct Request: DTO {
         public var voice: String
         public var items: [Speech.Item]
     }
 
     public typealias Items = [Item]
 
-    public enum Item: Codable, Hashable {
+    public enum Item: DTO {
         case news(_ text: String)
         case conversational(_ text: String)
         case pause(durationMS: Int)

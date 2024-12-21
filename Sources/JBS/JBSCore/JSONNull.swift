@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Encode/decode helpers
 
-public class JSONNull: Codable, Hashable {
+public final class JSONNull: DTO {
     public init() {}
 
     public required init(from decoder: Decoder) throws {

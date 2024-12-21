@@ -10,7 +10,7 @@ import JBS
 import JCX
 
 @PublicInit
-public struct PromptSet: Codable, Hashable {
+public struct PromptSet: DTO {
     public var prompt: String = ""
     public var negativePrompt: String = ""
 }

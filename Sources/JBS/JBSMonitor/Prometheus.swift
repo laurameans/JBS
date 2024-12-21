@@ -9,7 +9,7 @@ import Foundation
 
 public enum Prometheus {
     @PublicInit
-    public struct RangeQuery: Codable, Hashable {
+    public struct RangeQuery: DTO {
         public var query: String
         public var start: Date
         public var end: Date
@@ -17,7 +17,7 @@ public enum Prometheus {
     }
 
     @PublicInit
-    public struct RangeQueryResult: Codable, Hashable {
+    public struct RangeQueryResult: DTO {
         public var status: String
         public var data: DataClass
         public var graph: [GraphData] {
@@ -44,24 +44,24 @@ public enum Prometheus {
     }
 
     @PublicInit
-    public struct GraphData: Codable, Hashable {
+    public struct GraphData: DTO {
         public var value: Double
         public var time: Date
     }
 
     @PublicInit
-    public struct DataClass: Codable, Hashable {
+    public struct DataClass: DTO {
         public var resultType: String
         public var result: [Result]
     }
 
     @PublicInit
-    public struct Result: Codable, Hashable {
+    public struct Result: DTO {
         public var metric: [String: String]
         public var values: [[Value]]
     }
 
-    public enum Value: Codable, Hashable {
+    public enum Value: DTO {
         case time(Date)
         case string(String)
 
