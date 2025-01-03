@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import JBS
 
-public protocol DreamPrediction: Codable, Sendable, Hashable, Identifiable {
+// MARK: - DreamPrediction
+
+public protocol DreamPrediction: DTO, Hashable, Identifiable {
     associatedtype Create: DreamPredictionCreate
     associatedtype Input: DreamInput
     associatedtype Output
@@ -28,7 +31,18 @@ public extension DreamPrediction {
     }
 }
 
-public protocol DreamPredictionCreate: Codable, Hashable, Sendable {}
-public protocol DreamInput: Codable, Hashable, Sendable {}
-public protocol DreamOutput: Codable, Hashable, Sendable {}
-public protocol DreamStatus: Codable, Hashable, Sendable {}
+// MARK: - DreamPredictionCreate
+
+public protocol DreamPredictionCreate: DTO {}
+
+// MARK: - DreamInput
+
+public protocol DreamInput: DTO {}
+
+// MARK: - DreamOutput
+
+public protocol DreamOutput: DTO {}
+
+// MARK: - DreamStatus
+
+public protocol DreamStatus: DTO {}

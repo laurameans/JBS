@@ -10,13 +10,13 @@ import JBS
 
 public enum OpenAI {
     @PublicInit
-    public struct AuthenticatedChatRequest: Codable {
+    public struct AuthenticatedChatRequest: DTO {
         public var request: ChatRequest
         public var key: String
     }
 
     @PublicInit
-    public struct UserChatRequest: Codable {
+    public struct UserChatRequest: DTO {
         public var request: ChatRequest
         public var createdDate: Date
         public var title: String?
@@ -24,7 +24,7 @@ public enum OpenAI {
     }
 
     @PublicInit
-    public struct ChatRequest: Codable {
+    public struct ChatRequest: DTO {
         public var model: String = "gpt-3.5-turbo"
         public var messages: [ChatMessage]
         /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
@@ -45,7 +45,7 @@ public enum OpenAI {
     }
 
     @PublicInit
-    public struct ChatResponse: Codable {
+    public struct ChatResponse: DTO {
         public var id: String
         public var object: String
         public var created: Date
@@ -54,22 +54,22 @@ public enum OpenAI {
     }
 
     @PublicInit
-    public struct ChatUsage: Codable {
+    public struct ChatUsage: DTO {
         public var promptTokens: Int
         public var completionTokens: Int
         public var totalTokens: Int
     }
 
     @PublicInit
-    public struct ChatChoice: Codable {
+    public struct ChatChoice: DTO {
         public var index: Int
         public var message: ChatMessage
         public var finishReason: String?
     }
 
     @PublicInit
-    public struct ChatMessage: Codable, Hashable {
-        public enum Role: String, RawRepresentable, Codable {
+    public struct ChatMessage: DTO {
+        public enum Role: String, RawRepresentable, DTO {
             case system
             case assistant
             case user
@@ -80,7 +80,7 @@ public enum OpenAI {
     }
 
     @PublicInit
-    public struct CompletionRequest: Codable {
+    public struct CompletionRequest: DTO {
         public var model: String
         public var prompt: String
         public var suffix: String?
@@ -119,7 +119,7 @@ public enum OpenAI {
     }
 
     @PublicInit
-    public struct CompletionResponse: Codable, Equatable {
+    public struct CompletionResponse: DTO {
         public var id: String
         public var object: String
         public var created: Int
@@ -137,7 +137,7 @@ public enum OpenAI {
     // MARK: - CompletionChoice
 
     @PublicInit
-    public struct CompletionChoice: Codable, Equatable {
+    public struct CompletionChoice: DTO {
         public var text: String
         public var index: Int
         public var finishReason: String
@@ -158,7 +158,7 @@ public enum OpenAI {
     // MARK: - CompletionUsage
 
     @PublicInit
-    public struct CompletionUsage: Codable, Equatable {
+    public struct CompletionUsage: DTO {
         public var promptTokens: Int
         public var completionTokens: Int
         public var totalTokens: Int

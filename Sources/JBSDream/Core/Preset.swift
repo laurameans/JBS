@@ -9,7 +9,7 @@ import Foundation
 import JBS
 
 @PublicInit
-public struct Preset: Codable, Equatable, Hashable {
+public struct Preset: DTO {
     public var title: String
     public var promptSet: PromptSet
     public var id: Int
