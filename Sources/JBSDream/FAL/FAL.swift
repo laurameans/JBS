@@ -62,6 +62,15 @@ public struct GenDreamTextToImageRequest: DTO {
     }
 }
 
+@PublicInit
+public struct FalTrellisRequest: DTO {
+    public var imageURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case imageURL = "image_url"
+    }
+}
+
 // MARK: - ImageSize
 
 @PublicInit
@@ -131,6 +140,46 @@ public struct FALImage: DTO {
         case contentType = "content_type"
     }
 }
+
+// MARK: - FALTrellisResponse
+public struct FALTrellisResponse: DTO {
+    public var modelMesh: FALModelMesh
+    public var timings: FALTrellisTimings
+    
+    public init(modelMesh: FALModelMesh, timings: FALTrellisTimings) {
+        self.modelMesh = modelMesh
+        self.timings = timings
+    }
+}
+
+// MARK: - FALModelMesh
+public struct FALModelMesh: DTO {
+    public var url: String
+    public var contentType: String
+    public var fileName: String
+    public var fileSize: Int
+    
+    public init(url: String, contentType: String, fileName: String, fileSize: Int) {
+        self.url = url
+        self.contentType = contentType
+        self.fileName = fileName
+        self.fileSize = fileSize
+    }
+}
+
+// MARK: - FALTimings
+public struct FALTrellisTimings: DTO {
+    public var prepare: Double
+    public var generation: Double
+    public var export: Double
+    
+    public init(prepare: Double, generation: Double, export: Double) {
+        self.prepare = prepare
+        self.generation = generation
+        self.export = export
+    }
+}
+
 
 // MARK: - FALTimings
 
