@@ -150,6 +150,11 @@ public struct FALTrellisResponse: DTO {
         self.modelMesh = modelMesh
         self.timings = timings
     }
+    
+    public enum CodingKeys: String, CodingKey {
+        case modelMesh = "model_mesh"
+        case timings
+    }
 }
 
 // MARK: - FALModelMesh
