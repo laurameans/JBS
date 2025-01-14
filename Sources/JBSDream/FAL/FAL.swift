@@ -165,6 +165,13 @@ public struct FALModelMesh: DTO {
         self.fileName = fileName
         self.fileSize = fileSize
     }
+    
+    public enum CodingKeys: String, CodingKey {
+        case url
+        case contentType = "content_type"
+        case fileName = "file_name"
+        case fileSize = "file_size"
+    }
 }
 
 // MARK: - FALTimings
