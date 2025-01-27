@@ -17,4 +17,5 @@ public struct Website: DTO {
     public var headerMenu: WebMenu?
     public var footerMenu: WebMenu?
     public var stylesheetURL: String?
+    public var stylesheetContent: String?
 }
