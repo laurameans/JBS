@@ -54,7 +54,7 @@ public struct GenDreamStatusResponse: DTO {
 @PublicInit
 public struct GenDreamTextToImageRequest: DTO {
     public var prompt: String
-    public var imageSize: ImageSize?
+    public var imageSize: ImageSize
 
     enum CodingKeys: String, CodingKey {
         case prompt
@@ -75,8 +75,8 @@ public struct FalTrellisRequest: DTO {
 
 @PublicInit
 public struct ImageSize: DTO {
-    public var width: Int
-    public var height: Int
+    public var width: CGFloat
+    public var height: CGFloat
 }
 
 // MARK: - Metrics
