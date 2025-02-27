@@ -8,7 +8,7 @@
 import Foundation
 import JBS
 
-public protocol Swizzle: DTO, RawRepresentable, Hashable, CircularCaseSequence {
+public protocol Swizzle: DTO, RawRepresentable, Hashable, CircularCaseSequence, Equatable {
     var nickName: String { get }
     var text: String { get }
     var negativeText: String? { get }
