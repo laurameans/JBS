@@ -29,6 +29,10 @@ public extension CaseIterable where Self: Equatable {
     func offset(by offset: Int) -> Self {
         Self.allCases[self, moduloOffset: offset]!
     }
+    
+    static var allCasesShuffled: [Self] {
+        Self.allCases.shuffled()
+    }
 }
 
 public extension Collection where Element: Equatable {
