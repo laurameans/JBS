@@ -62,10 +62,12 @@ public struct GenDreamTextToImageRequest: DTO {
     }
 }
 
+// MARK: - FalTrellisRequest
+
 @PublicInit
 public struct FalTrellisRequest: DTO {
     public var imageURL: String
-    
+
     enum CodingKeys: String, CodingKey {
         case imageURL = "image_url"
     }
@@ -142,15 +144,16 @@ public struct FALImage: DTO {
 }
 
 // MARK: - FALTrellisResponse
+
 public struct FALTrellisResponse: DTO {
     public var modelMesh: FALModelMesh
     public var timings: FALTrellisTimings
-    
+
     public init(modelMesh: FALModelMesh, timings: FALTrellisTimings) {
         self.modelMesh = modelMesh
         self.timings = timings
     }
-    
+
     public enum CodingKeys: String, CodingKey {
         case modelMesh = "model_mesh"
         case timings
@@ -158,19 +161,20 @@ public struct FALTrellisResponse: DTO {
 }
 
 // MARK: - FALModelMesh
+
 public struct FALModelMesh: DTO {
     public var url: String
     public var contentType: String
     public var fileName: String
     public var fileSize: Int
-    
+
     public init(url: String, contentType: String, fileName: String, fileSize: Int) {
         self.url = url
         self.contentType = contentType
         self.fileName = fileName
         self.fileSize = fileSize
     }
-    
+
     public enum CodingKeys: String, CodingKey {
         case url
         case contentType = "content_type"
@@ -179,19 +183,19 @@ public struct FALModelMesh: DTO {
     }
 }
 
-// MARK: - FALTimings
+// MARK: - FALTrellisTimings
+
 public struct FALTrellisTimings: DTO {
     public var prepare: Double
     public var generation: Double
     public var export: Double
-    
+
     public init(prepare: Double, generation: Double, export: Double) {
         self.prepare = prepare
         self.generation = generation
         self.export = export
     }
 }
-
 
 // MARK: - FALTimings
 
@@ -201,10 +205,30 @@ public struct FALTimings: DTO {
     public init(inference: Double) {
         self.inference = inference
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case inference
     }
+}
+
+// MARK: - FalLLMResponse
+@PublicInit
+public struct FalLLMResponse: Hashable, Sendable {
+    public var output: String
+    public var reasoning: NSNull
+    public var partial: Bool
+    public var error: NSNull
+}
+
+// MARK: - FalLLMRequest
+@PublicInit
+public struct FalLLMRequest: Hashable, Sendable {
+    public var status: String
+    public var requestID: String
+    public var responseURL: String
+    public var statusURL: String
+    public var cancelURL: String
+    public var queuePosition: Int
 }
 
 /**
