@@ -47,7 +47,7 @@ public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
     public var upscaled: Bool?
 
     public var remoteID: UUID?
-    public var id: UUID = .init()
+    public var id: UUID
     public var prompt: String
     public var negativePrompt: String
     public var stepCount: Int
