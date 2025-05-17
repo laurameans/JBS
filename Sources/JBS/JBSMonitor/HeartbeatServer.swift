@@ -47,7 +47,7 @@
 //        actorSystem.logger.trace("HeartbeatServerActor.register(\(client.id))")
 //        clients.insert(client)
 //        
-//        // Immediately broadcast to the new clicker so they have the current value.
+//        // Immediately broadcast to the new client so they have the current value.
 //        do {
 //            try await client.sendEvent(.connected)
 //        } catch {
