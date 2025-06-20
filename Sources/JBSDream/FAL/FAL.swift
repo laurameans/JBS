@@ -73,6 +73,30 @@ public struct FalTrellisRequest: DTO {
     }
 }
 
+@PublicInit
+public struct FalKontextRequest: DTO {
+    public var prompt: String
+    public var imageURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case prompt = "prompt"
+        case imageURL = "image_url"
+    }
+}
+
+@PublicInit
+public struct WanFLF2VRequest: DTO {
+    public var prompt: String
+    public var startImageURL: String
+    public var endImageURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case prompt
+        case startImageURL = "start_image_url"
+        case endImageURL = "end_image_url"
+    }
+}
+
 // MARK: - ImageSize
 
 @PublicInit
@@ -95,21 +119,13 @@ public struct Metrics: DTO {
 import Foundation
 
 // MARK: - FALFluxResponse
-
+@PublicInit
 public struct FALFluxResponse: DTO {
     public var images: [FALImage]
     public var timings: FALTimings
     public var seed: Int
     public var hasNsfwConcepts: [Bool]
     public var prompt: String
-
-    public init(images: [FALImage], timings: FALTimings, seed: Int, hasNsfwConcepts: [Bool], prompt: String) {
-        self.images = images
-        self.timings = timings
-        self.seed = seed
-        self.hasNsfwConcepts = hasNsfwConcepts
-        self.prompt = prompt
-    }
 
     enum CodingKeys: String, CodingKey {
         case images
@@ -121,19 +137,12 @@ public struct FALFluxResponse: DTO {
 }
 
 // MARK: - FALImage
-
+@PublicInit
 public struct FALImage: DTO {
     public var url: String
     public var width: Int
     public var height: Int
     public var contentType: String
-
-    public init(url: String, width: Int, height: Int, contentType: String) {
-        self.url = url
-        self.width = width
-        self.height = height
-        self.contentType = contentType
-    }
 
     enum CodingKeys: String, CodingKey {
         case url
@@ -144,15 +153,10 @@ public struct FALImage: DTO {
 }
 
 // MARK: - FALTrellisResponse
-
+@PublicInit
 public struct FALTrellisResponse: DTO {
-    public var modelMesh: FALModelMesh
+    public var modelMesh: FALAsset
     public var timings: FALTrellisTimings
-
-    public init(modelMesh: FALModelMesh, timings: FALTrellisTimings) {
-        self.modelMesh = modelMesh
-        self.timings = timings
-    }
 
     public enum CodingKeys: String, CodingKey {
         case modelMesh = "model_mesh"
@@ -160,20 +164,24 @@ public struct FALTrellisResponse: DTO {
     }
 }
 
-// MARK: - FALModelMesh
+@PublicInit
+public struct FALWANFLF2VResponse: DTO {
+    public var video: FALAsset
+    public var seed: Int
+    
+    public enum CodingKeys: String, CodingKey {
+        case video
+        case seed
+    }
+}
 
-public struct FALModelMesh: DTO {
+// MARK: - FALModelMesh
+@PublicInit
+public struct FALAsset: DTO {
     public var url: String
     public var contentType: String
     public var fileName: String
     public var fileSize: Int
-
-    public init(url: String, contentType: String, fileName: String, fileSize: Int) {
-        self.url = url
-        self.contentType = contentType
-        self.fileName = fileName
-        self.fileSize = fileSize
-    }
 
     public enum CodingKeys: String, CodingKey {
         case url
@@ -184,27 +192,17 @@ public struct FALModelMesh: DTO {
 }
 
 // MARK: - FALTrellisTimings
-
+@PublicInit
 public struct FALTrellisTimings: DTO {
     public var prepare: Double
     public var generation: Double
     public var export: Double
-
-    public init(prepare: Double, generation: Double, export: Double) {
-        self.prepare = prepare
-        self.generation = generation
-        self.export = export
-    }
 }
 
 // MARK: - FALTimings
-
+@PublicInit
 public struct FALTimings: DTO {
     public var inference: Double
-
-    public init(inference: Double) {
-        self.inference = inference
-    }
 
     enum CodingKeys: String, CodingKey {
         case inference
