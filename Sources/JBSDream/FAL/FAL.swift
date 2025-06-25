@@ -54,11 +54,13 @@ public struct GenDreamStatusResponse: DTO {
 @PublicInit
 public struct GenDreamTextToImageRequest: DTO {
     public var prompt: String
+    public var seed: Int = Int.random(in: 0...999_999)
     public var imageSize: ImageSize
 
     enum CodingKeys: String, CodingKey {
         case prompt
         case imageSize = "image_size"
+        case seed
     }
 }
 
@@ -77,10 +79,12 @@ public struct FalTrellisRequest: DTO {
 public struct FalKontextRequest: DTO {
     public var prompt: String
     public var imageURL: String
+    public var seed: Int = Int.random(in: 0...999_999)
     
     enum CodingKeys: String, CodingKey {
         case prompt = "prompt"
         case imageURL = "image_url"
+        case seed
     }
 }
 
@@ -89,11 +93,13 @@ public struct WanFLF2VRequest: DTO {
     public var prompt: String
     public var startImageURL: String
     public var endImageURL: String
+    public var seed: Int = Int.random(in: 0...999_999)
     
     enum CodingKeys: String, CodingKey {
         case prompt
         case startImageURL = "start_image_url"
         case endImageURL = "end_image_url"
+        case seed
     }
 }
 

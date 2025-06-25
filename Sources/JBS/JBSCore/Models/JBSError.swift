@@ -17,6 +17,7 @@ public enum JBSError: Error {
     case siwaEmailMissing
     case siwaInvalidState
     case noUsername
+    case creditRequestRejected
 
     public var message: String {
         switch self {
@@ -38,6 +39,8 @@ public enum JBSError: Error {
             return "Invalid state for Sign in With Apple."
         case .noUsername:
             return "Please set up a username."
+        case .creditRequestRejected:
+            return "Request rejected. Credits have been refunded."
         }
     }
 }

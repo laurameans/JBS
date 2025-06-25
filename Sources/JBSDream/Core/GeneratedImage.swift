@@ -69,6 +69,8 @@ public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
     public var edgeControlStrength: Float?
     public var colorControlStrength: Float?
     public var model: AIModel?
+    public var published: Bool?
+    public var videoURL: String?
 
     #if !os(Linux)
     public var image: NSUIImage?
@@ -86,7 +88,7 @@ public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
         Self.libraryDirectory.appendingPathComponent(id.uuidString).appendingPathExtension("heic")
     }
 
-    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?, is360: Bool?, imageStrength: Float?, edgeControlStrength: Float?, colorControlStrength: Float?, model: AIModel?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, image: NSUIImage? = nil, originalImage: NSUIImage? = nil, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?, is360: Bool?, imageStrength: Float?, edgeControlStrength: Float?, colorControlStrength: Float?, model: AIModel?, published: Bool?, videoURL: String?) {
         self.remoteID = remoteID
         self.id = id
         self.prompt = prompt
@@ -113,9 +115,11 @@ public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
         self.edgeControlStrength = edgeControlStrength
         self.colorControlStrength = colorControlStrength
         self.model = model
+        self.published = published
+        self.videoURL = videoURL
     }
     #else
-    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?, is360: Bool?, imageStrength: Float?, edgeControlStrength: Float?, colorControlStrength: Float?, model: AIModel?) {
+    public init(id: UUID = UUID(), remoteID: UUID? = nil, remoteImageURL: String?, remoteOriginalImageURL: String?, controlImageURLs: [String]?, prompt: String, negativePrompt: String, stepCount: Int, seed: Int, disableSafety: Bool, createdDate: Date, scheduler: String?, guidanceScale: Float?, imageDestruction: Float?, deviceModel: String?, generationTimeSeconds: Float?, hidePrompt: Bool?, presetID: Int?, upscaled: Bool?, is360: Bool?, imageStrength: Float?, edgeControlStrength: Float?, colorControlStrength: Float?, model: AIModel?, published: Bool?, videoURL: String?) {
         self.remoteID = remoteID
         self.id = id
         self.prompt = prompt
@@ -140,6 +144,8 @@ public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
         self.edgeControlStrength = edgeControlStrength
         self.colorControlStrength = colorControlStrength
         self.model = model
+        self.published = published
+        self.videoURL = videoURL
     }
     #endif
     public enum CodingKeys: CodingKey {
@@ -167,6 +173,8 @@ public struct GeneratedImage: DiffusionGenerated, @unchecked Sendable {
         case edgeControlStrength
         case colorControlStrength
         case model
+        case published
+        case videoURL
     }
 }
 
@@ -198,7 +206,9 @@ extension GeneratedImage: Codable {
         let edgeControlStrength = try container.decodeIfPresent(Float.self, forKey: .edgeControlStrength)
         let colorControlStrength = try container.decodeIfPresent(Float.self, forKey: .colorControlStrength)
         let model = try container.decodeIfPresent(AIModel.self, forKey: .model)
-        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID, upscaled: upscaled, is360: is360, imageStrength: imageStrength, edgeControlStrength: edgeControlStrength, colorControlStrength: colorControlStrength, model: model)
+        let published = try container.decodeIfPresent(Bool.self, forKey: .published)
+        let videoURL = try container.decodeIfPresent(String.self, forKey: .videoURL)
+        self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID, upscaled: upscaled, is360: is360, imageStrength: imageStrength, edgeControlStrength: edgeControlStrength, colorControlStrength: colorControlStrength, model: model, published: published, videoURL: videoURL)
         let base = Self.libraryDirectory.appendingPathComponent(id.uuidString)
         var imageLocation: URL!
         if FileManager.default.fileExists(atPath: base.appendingPathExtension("heic").path) {
@@ -235,6 +245,8 @@ extension GeneratedImage: Codable {
         try container.encodeIfPresent(presetID, forKey: .presetID)
         try container.encodeIfPresent(upscaled, forKey: .upscaled)
         try container.encodeIfPresent(model, forKey: .model)
+        try container.encodeIfPresent(published, forKey: .published)
+        try container.encodeIfPresent(videoURL, forKey: .videoURL)
     }
 }
 
@@ -244,7 +256,7 @@ extension GeneratedImage: Codable {}
 
 public extension GeneratedImage {
     static var empty: GeneratedImage {
-        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false, is360: nil, imageStrength: nil, edgeControlStrength: nil, colorControlStrength: nil, model: nil)
+        GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false, is360: nil, imageStrength: nil, edgeControlStrength: nil, colorControlStrength: nil, model: nil, published: false, videoURL: nil)
     }
 }
 

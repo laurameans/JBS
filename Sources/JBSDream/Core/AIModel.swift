@@ -46,6 +46,9 @@ public enum AIModel: String, DTO {
     case deepTake_3_0_1024x512_Max
     case deepTake_3_0_1024x512_Neural
     case deepTake_3_0_512x1024_Neural
+    case flux1Schnell
+    case flux1Kontext
+    case wanFLF2V
 
     public enum ProviderType: String {
         case zip
@@ -128,6 +131,12 @@ public enum AIModel: String, DTO {
             return URL(string: "https://cdn.outtakes.com/ai/models/DeepTake-3-0-1024x512-Neural.zip")!
         case .deepTake_3_0_512x1024_Neural:
             return URL(string: "https://cdn.outtakes.com/ai/models/DeepTake-3-0-512x1024-Neural.zip")!
+        case .flux1Schnell:
+            return URL(string: "https://jws.ai")!
+        case .flux1Kontext:
+            return URL(string: "https://jws.ai")!
+        case .wanFLF2V:
+            return URL(string: "https://jws.ai")!
         }
     }
 
@@ -204,6 +213,12 @@ public enum AIModel: String, DTO {
             return "DeepTake 3.0 512x1024 Neural"
         case .deepTake_3_0_1024x512_Neural:
             return "DeepTake 3.0 1024x512 Neural"
+        case .flux1Schnell:
+            return "FLUX.1 Schnell"
+        case .flux1Kontext:
+            return "FLUX.1 Kontext"
+        case .wanFLF2V:
+            return "WANFLF2V"
         }
     }
 
