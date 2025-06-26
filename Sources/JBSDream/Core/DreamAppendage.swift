@@ -9,6 +9,8 @@ import Foundation
 import JBS
 
 public enum DreamAppendage: StringLiteralType, Swizzle {
+    public static var className: String { "Dream" }
+    public static var classImageName: String { "sparkles" }
     case photoRealisticWideAngle
     case photoRealistic
     case portrait

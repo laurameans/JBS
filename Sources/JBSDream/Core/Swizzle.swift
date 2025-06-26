@@ -13,4 +13,6 @@ public protocol Swizzle: DTO, RawRepresentable, Hashable, CircularCaseSequence, 
     var text: String { get }
     var negativeText: String? { get }
     static var slug: String { get }
+    static var className: String { get }
+    static var classImageName: String { get }
 }
