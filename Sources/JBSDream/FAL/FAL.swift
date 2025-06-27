@@ -128,14 +128,14 @@ import Foundation
 @PublicInit
 public struct FALFluxResponse: DTO {
     public var images: [FALImage]
-    public var timings: FALTimings?
+//    public var timings: FALTimings?
     public var seed: Int
     public var hasNsfwConcepts: [Bool]
     public var prompt: String
 
     enum CodingKeys: String, CodingKey {
         case images
-        case timings
+//        case timings
         case seed
         case hasNsfwConcepts = "has_nsfw_concepts"
         case prompt
