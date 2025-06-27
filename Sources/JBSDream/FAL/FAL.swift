@@ -128,7 +128,7 @@ import Foundation
 @PublicInit
 public struct FALFluxResponse: DTO {
     public var images: [FALImage]
-    public var timings: FALTimings
+    public var timings: FALTimings?
     public var seed: Int
     public var hasNsfwConcepts: [Bool]
     public var prompt: String
@@ -233,4 +233,20 @@ public struct FalLLMRequest: Hashable, Sendable {
     public var statusURL: String
     public var cancelURL: String
     public var queuePosition: Int
+}
+
+public enum CreditCost: String, CaseIterable {
+    case fluxSchnell
+    case fluxKontext
+    case trellis
+    case wanflf2v
+    
+    public var cost: Int {
+        switch self {
+            case .fluxSchnell: 1
+            case .fluxKontext: 10
+            case .trellis: 5
+            case .wanflf2v: 50
+        }
+    }
 }
