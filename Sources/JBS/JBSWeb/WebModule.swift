@@ -46,6 +46,7 @@ public struct WebContent: DTO, Duplicatable {
     public var rawHTML: String?
     public var doubleWidth: Bool?
     public var style: String?
+    public var darkModeValue: String?
 
     public var computedHTML: String {
         ""
