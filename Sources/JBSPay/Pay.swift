@@ -5,4 +5,12 @@
 //  Created by Justin Means on 6/18/25.
 //
 
-// Hello
+import Foundation
+import JCX
+
+// MARK: - CreditsResponse
+
+@PublicInit
+public struct CreditsResponse: DTO {
+    public let credits: Int
+}
