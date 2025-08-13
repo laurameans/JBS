@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import JBS
 import JCX
 
 // MARK: - CreditsResponse
