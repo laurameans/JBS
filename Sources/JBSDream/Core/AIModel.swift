@@ -48,6 +48,7 @@ public enum AIModel: String, DTO {
     case deepTake_3_0_512x1024_Neural
     case flux1Schnell
     case flux1Kontext
+    case qwenImageEdit
     case wanFLF2V
 
     public enum ProviderType: String {
@@ -135,6 +136,8 @@ public enum AIModel: String, DTO {
             return URL(string: "https://jws.ai")!
         case .flux1Kontext:
             return URL(string: "https://jws.ai")!
+        case .qwenImageEdit:
+            return URL(string: "https://jws.ai")!
         case .wanFLF2V:
             return URL(string: "https://jws.ai")!
         }
@@ -217,6 +220,8 @@ public enum AIModel: String, DTO {
             return "FLUX.1 Schnell"
         case .flux1Kontext:
             return "FLUX.1 Kontext"
+        case .qwenImageEdit:
+            return "Qwen Image Edit"
         case .wanFLF2V:
             return "WANFLF2V"
         }

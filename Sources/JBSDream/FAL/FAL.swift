@@ -76,15 +76,21 @@ public struct FalTrellisRequest: DTO {
 }
 
 @PublicInit
-public struct FalKontextRequest: DTO {
+public struct FalImageEditRequest: DTO {
     public var prompt: String
     public var imageURL: String
     public var seed: Int = Int.random(in: 0...999_999)
+    public var numInferenceSteps: Int?
+    public var guidanceScale: Float?
+    public var negativePrompt: String?
     
     enum CodingKeys: String, CodingKey {
-        case prompt = "prompt"
+        case prompt
         case imageURL = "image_url"
         case seed
+        case numInferenceSteps = "num_inference_steps"
+        case guidanceScale = "guidance_scale"
+        case negativePrompt = "negative_prompt"
     }
 }
 
@@ -238,6 +244,7 @@ public struct FalLLMRequest: Hashable, Sendable {
 public enum CreditCost: String, CaseIterable {
     case fluxSchnell
     case fluxKontext
+    case qwenImageEdit
     case trellis
     case wanflf2v
     
@@ -245,6 +252,7 @@ public enum CreditCost: String, CaseIterable {
         switch self {
             case .fluxSchnell: 1
             case .fluxKontext: 10
+            case .qwenImageEdit: 10
             case .trellis: 5
             case .wanflf2v: 50
         }
