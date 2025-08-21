@@ -75,6 +75,22 @@ public struct FalTrellisRequest: DTO {
     }
 }
 
+// MARK: - LoraWeight
+
+@PublicInit
+public struct LoraWeight: DTO {
+    public var path: String
+    public var scale: Float = 1.0
+}
+
+// MARK: - AccelerationEnum
+
+public enum AccelerationEnum: String, CaseIterable, DTO {
+    case none = "none"
+    case regular = "regular" 
+    case high = "high"
+}
+
 @PublicInit
 public struct FalImageEditRequest: DTO {
     public var prompt: String
@@ -83,6 +99,8 @@ public struct FalImageEditRequest: DTO {
     public var numInferenceSteps: Int?
     public var guidanceScale: Float?
     public var negativePrompt: String?
+    public var loras: [LoraWeight]?
+    public var acceleration: AccelerationEnum?
     
     enum CodingKeys: String, CodingKey {
         case prompt
@@ -91,6 +109,8 @@ public struct FalImageEditRequest: DTO {
         case numInferenceSteps = "num_inference_steps"
         case guidanceScale = "guidance_scale"
         case negativePrompt = "negative_prompt"
+        case loras
+        case acceleration
     }
 }
 
