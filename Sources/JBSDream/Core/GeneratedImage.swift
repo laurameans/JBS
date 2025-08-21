@@ -214,17 +214,6 @@ extension GeneratedImage: Codable {
         let videoURL = try container.decodeIfPresent(String.self, forKey: .videoURL)
         let spatialModelURL = try container.decodeIfPresent(String.self, forKey: .spatialModelURL)
         self.init(id: id, remoteID: remoteID, remoteImageURL: remoteImageURL, remoteOriginalImageURL: remoteOriginalImageURL, controlImageURLs: controlImageURLs, prompt: prompt, negativePrompt: negativePrompt, stepCount: stepCount, seed: seed, disableSafety: disableSafety, createdDate: createdDate, scheduler: scheduler, guidanceScale: guidanceScale, imageDestruction: imageDestruction, deviceModel: deviceModel, generationTimeSeconds: generationTimeSeconds, hidePrompt: hidePrompt, presetID: presetID, upscaled: upscaled, is360: is360, imageStrength: imageStrength, edgeControlStrength: edgeControlStrength, colorControlStrength: colorControlStrength, model: model, published: published, videoURL: videoURL, spatialModelURL: spatialModelURL)
-        let base = Self.libraryDirectory.appendingPathComponent(id.uuidString)
-        var imageLocation: URL!
-        if FileManager.default.fileExists(atPath: base.appendingPathExtension("heic").path) {
-            imageLocation = base.appendingPathExtension("heic")
-        } else {
-            imageLocation = base.appendingPathExtension("jpeg")
-        }
-        let data = try? Data(contentsOf: imageLocation)
-        if let data = data {
-            image = NSUIImage(data: data)
-        }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -264,6 +253,25 @@ public extension GeneratedImage {
     static var empty: GeneratedImage {
         GeneratedImage(remoteImageURL: nil, remoteOriginalImageURL: nil, controlImageURLs: nil, prompt: "", negativePrompt: "", stepCount: 0, seed: 0, disableSafety: false, createdDate: Date(), scheduler: nil, guidanceScale: nil, imageDestruction: nil, deviceModel: nil, generationTimeSeconds: nil, hidePrompt: nil, presetID: nil, upscaled: false, is360: nil, imageStrength: nil, edgeControlStrength: nil, colorControlStrength: nil, model: nil, published: false, videoURL: nil, spatialModelURL: nil)
     }
+
+    #if !os(Linux)
+    /// Lazy-load the image from disk when needed, preventing memory issues during initial library loading
+    mutating func loadImageIfNeeded() {
+        guard image == nil else { return }
+        
+        let base = Self.libraryDirectory.appendingPathComponent(id.uuidString)
+        var imageLocation: URL!
+        if FileManager.default.fileExists(atPath: base.appendingPathExtension("heic").path) {
+            imageLocation = base.appendingPathExtension("heic")
+        } else {
+            imageLocation = base.appendingPathExtension("jpeg")
+        }
+        
+        if let data = try? Data(contentsOf: imageLocation) {
+            image = NSUIImage(data: data)
+        }
+    }
+    #endif
 }
 
 public extension JBS.ReportSchema {
