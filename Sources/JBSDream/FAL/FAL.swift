@@ -94,21 +94,25 @@ public enum AccelerationEnum: String, CaseIterable, DTO {
 @PublicInit
 public struct FalImageEditRequest: DTO {
     public var prompt: String
-    public var imageURL: String
+    public var imageURL: String?
+    public var imageURLs: [String]?
     public var seed: Int = Int.random(in: 0...999_999)
     public var numInferenceSteps: Int?
     public var guidanceScale: Float?
     public var negativePrompt: String?
+    public var numImages: Int?
     public var loras: [LoraWeight]?
     public var acceleration: AccelerationEnum?
     
     enum CodingKeys: String, CodingKey {
         case prompt
         case imageURL = "image_url"
+        case imageURLs = "image_urls"
         case seed
         case numInferenceSteps = "num_inference_steps"
         case guidanceScale = "guidance_scale"
         case negativePrompt = "negative_prompt"
+        case numImages = "num_images"
         case loras
         case acceleration
     }
@@ -155,16 +159,16 @@ import Foundation
 public struct FALFluxResponse: DTO {
     public var images: [FALImage]
 //    public var timings: FALTimings?
-    public var seed: Int
-    public var hasNsfwConcepts: [Bool]
-    public var prompt: String
+    public var seed: Int?
+    public var prompt: String?
+    public var description: String?
 
     enum CodingKeys: String, CodingKey {
         case images
 //        case timings
         case seed
-        case hasNsfwConcepts = "has_nsfw_concepts"
         case prompt
+        case description
     }
 }
 
@@ -172,9 +176,9 @@ public struct FALFluxResponse: DTO {
 @PublicInit
 public struct FALImage: DTO {
     public var url: String
-    public var width: Int
-    public var height: Int
-    public var contentType: String
+    public var width: Int?
+    public var height: Int?
+    public var contentType: String?
 
     enum CodingKeys: String, CodingKey {
         case url
@@ -265,6 +269,7 @@ public enum CreditCost: String, CaseIterable {
     case fluxSchnell
     case fluxKontext
     case qwenImageEdit
+    case nanoBanana
     case trellis
     case wanflf2v
     
@@ -273,6 +278,7 @@ public enum CreditCost: String, CaseIterable {
             case .fluxSchnell: 1
             case .fluxKontext: 10
             case .qwenImageEdit: 10
+            case .nanoBanana: 10
             case .trellis: 5
             case .wanflf2v: 50
         }

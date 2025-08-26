@@ -50,6 +50,7 @@ public enum AIModel: String, DTO {
     case flux1Kontext
     case flux1KontextLora
     case qwenImageEdit
+    case nanoBanana
     case wanFLF2V
 
     public enum ProviderType: String {
@@ -141,6 +142,8 @@ public enum AIModel: String, DTO {
             return URL(string: "https://jws.ai")!
         case .qwenImageEdit:
             return URL(string: "https://jws.ai")!
+        case .nanoBanana:
+            return URL(string: "https://jws.ai")!
         case .wanFLF2V:
             return URL(string: "https://jws.ai")!
         }
@@ -227,6 +230,8 @@ public enum AIModel: String, DTO {
             return "FLUX.1 Kontext Lora"
         case .qwenImageEdit:
             return "Qwen Image Edit"
+        case .nanoBanana:
+            return "Nano Banana"
         case .wanFLF2V:
             return "WANFLF2V"
         }
