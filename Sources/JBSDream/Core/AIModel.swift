@@ -225,13 +225,16 @@ public enum AIModel: String, DTO {
         case .flux1Schnell:
             return "FLUX.1 Schnell"
         case .flux1Kontext:
-            return "FLUX.1 Kontext"
+//            return "FLUX.1 Kontext"
+                return "V1"
         case .flux1KontextLora:
             return "FLUX.1 Kontext Lora"
         case .qwenImageEdit:
-            return "Qwen Image Edit"
+//            return "Qwen Image Edit"
+                return "V2"
         case .nanoBanana:
-            return "Nano Banana"
+//            return "Nano Banana"
+                return "V3"
         case .wanFLF2V:
             return "WANFLF2V"
         }
