@@ -239,6 +239,17 @@ public enum AIModel: String, DTO {
             return "WANFLF2V"
         }
     }
+    
+    public var creditCost: Int? {
+        switch self {
+            case .flux1Schnell: 1
+            case .flux1Kontext: 10
+            case .qwenImageEdit: 10
+            case .nanoBanana: 10
+            case .wanFLF2V: 50
+            default: nil
+        }
+    }
 
     public var providerType: ProviderType {
         return .zip
