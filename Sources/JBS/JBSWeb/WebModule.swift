@@ -14,6 +14,7 @@ public struct WebContent: DTO, Duplicatable {
         case image
         case button
         case video
+        case portfolio
 
         public var title: String {
             return switch self {
@@ -21,6 +22,7 @@ public struct WebContent: DTO, Duplicatable {
             case .image: "Image"
             case .button: "Button"
             case .video: "Video"
+            case .portfolio: "Portfolio"
             }
         }
 
@@ -34,6 +36,8 @@ public struct WebContent: DTO, Duplicatable {
                 "button.programmable.square"
             case .video:
                 "film"
+            case .portfolio:
+                "rectangle.grid.3x2"
             }
         }
     }
