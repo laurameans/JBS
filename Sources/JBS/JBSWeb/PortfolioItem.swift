@@ -22,6 +22,7 @@ public struct PortfolioConfig: DTO {
     public enum LayoutType: String, DTO {
         case grid
         case masonry
+        case dynamicGrid
     }
 
     public enum AspectRatio: String, DTO {
@@ -31,8 +32,8 @@ public struct PortfolioConfig: DTO {
         case original
     }
 
-    public var layout: LayoutType = .grid
-    public var columns: Int = 3
+    public var layout: LayoutType = .dynamicGrid
+    public var columns: Int? = nil
     public var spacing: String = "normal"
     public var aspectRatio: AspectRatio = .square
 }
