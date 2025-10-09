@@ -17,6 +17,7 @@ public struct JBSApp: DTO {
     public var name: JBSAppName
     public var prometheusInstance: String?
     public var prometheusURL: String?
+    public var monitorURL: String?
     public var id: UUID?
     public var githubOrgName: String?
     public var githubServerRepoName: String?
