@@ -18,4 +18,5 @@ public struct Website: DTO {
     public var footerMenu: WebMenu?
     public var stylesheetURL: String?
     public var stylesheetContent: String?
+    public var cloudflareZoneIDs: [String: String]?
 }
