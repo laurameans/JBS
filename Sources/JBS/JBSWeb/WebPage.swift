@@ -19,6 +19,8 @@ public enum WebPage {
         public var taxonomy: WebTaxonomy?
         public var isTaxonomyBase: Bool?
         public var featuredImageURL: String?
+        public var metaDescription: String?
+        public var keywords: String?
     }
 
     @PublicInit
