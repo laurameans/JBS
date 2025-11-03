@@ -17,12 +17,14 @@ let package = Package(
         .library(name: "JBSNews", targets: ["JBSNews"]),
         .library(name: "JBSDream", targets: ["JBSDream"]),
         .library(name: "JBSPay", targets: ["JBSPay"]),
+        .library(name: "JBSIntelligence", targets: ["JBSIntelligence"]),
     ],
 
     dependencies: [
         .package(url: "https://github.com/MeansAI/SwiftDate/", from: "1.0.0"),
         .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/JCX/", branch: "main"),
         .package(url: "https://github.com/MeansAI/swift-websocket", branch: "main"),
+        .package(url: "https://github.com/mattt/AnyLanguageModel.git", from: "0.2.2"),
     ],
     targets: [
         .target(name: "JBS", dependencies: [
@@ -45,6 +47,10 @@ let package = Package(
         .target(name: "JBSDream", dependencies: [
             "JBS",
             "JBSPay",
+        ]),
+        .target(name: "JBSIntelligence", dependencies: [
+            "JBS",
+            .product(name: "AnyLanguageModel", package: "AnyLanguageModel"),
         ]),
     ]
 )
