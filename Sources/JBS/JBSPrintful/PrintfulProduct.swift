@@ -25,4 +25,7 @@ public struct PrintfulVariant: DTO {
     public var size: String?
     public var color: String?
     public var availability: String?
+    public var imageUrl: String?
+    public var previewUrl: String?
+    public var sku: String?
 }

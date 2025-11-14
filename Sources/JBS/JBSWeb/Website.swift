@@ -20,4 +20,5 @@ public struct Website: DTO {
     public var stylesheetContent: String?
     public var cloudflareZoneIDs: [String: String]?
     public var printfulStoreId: Int?
+    public var printfulApiKey: String?
 }
