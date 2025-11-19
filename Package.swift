@@ -1,15 +1,15 @@
-// swift-tools-version:6.1
+// swift-tools-version:6.2
 
 import PackageDescription
 
 let package = Package(
     name: "JBS",
     platforms: [
-        .macOS(.v13),
-        .iOS(.v16),
-        .tvOS(.v16),
-        .watchOS(.v8),
-        .macCatalyst(.v16),
+        .macOS(.v14),
+        .iOS(.v17),
+        .tvOS(.v17),
+        .watchOS(.v10),
+        .macCatalyst(.v17),
         .visionOS(.v2),
     ],
     products: [
