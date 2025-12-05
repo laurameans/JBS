@@ -21,6 +21,7 @@ public enum WebPage {
         public var featuredImageURL: String?
         public var metaDescription: String?
         public var keywords: String?
+        public var showCollectionDates: Bool?
     }
 
     @PublicInit
