@@ -25,6 +25,7 @@ let package = Package(
         .package(url: "https://\("ghp_KbnPDE1nrX3Ir1sAdU1INkt3i" + "cagio11gRmz"):x-oauth-basic@github.com/MeansAI/JCX/", branch: "main"),
         .package(url: "https://github.com/MeansAI/swift-websocket", branch: "main"),
         .package(url: "https://github.com/mattt/AnyLanguageModel.git", branch: "main"),
+        .package(url: "https://github.com/JustinMeans/Transmission.git", branch: "main"),
     ],
     targets: [
         .target(name: "JBS", dependencies: [
@@ -32,6 +33,7 @@ let package = Package(
             .product(name: "JCX", package: "JCX"),
             .product(name: "WSClient", package: "swift-websocket"),
             .product(name: "WSCompression", package: "swift-websocket"),
+            .product(name: "Transmission", package: "Transmission"),
         ],
         swiftSettings: [
             // Force concurrency to be strictly enforced in both debug and release.
